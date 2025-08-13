@@ -17,4 +17,20 @@ class AppAssets {
   static const vector4 = 'assets/svgs/Vector4.svg';
   static const vector5 = 'assets/svgs/Vector5.svg';
   static const success = 'assets/svgs/Success.svg';
+
+  static const logo = 'assets/images/logo.png';
+
+  static const img1 = 'assets/svgs/vect1.svg';
+  static const img2 = 'assets/svgs/vect2.svg';
+  static const img3 = 'assets/svgs/vect3.svg';
+  static const img4 = 'assets/svgs/vect4.svg';
+  static const img5 = 'assets/svgs/vect5.svg';
+
+  static const bill1 = 'assets/images/ceb.png';
+  static const bill2 = 'assets/images/water.png';
+  static const bill3 = 'assets/images/traffic.png';
+  static const bill4 = 'assets/images/more.png';
+
+  static const breaking = 'assets/images/breaking.jpg';
+  static const breaking2 = 'assets/images/breaking2.jpg';
 }

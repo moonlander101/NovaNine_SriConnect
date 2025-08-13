@@ -79,7 +79,7 @@ class _AppState extends State<App> {
               child: Container(
                 decoration: BoxDecoration(
                   color: AppColors.blue,
-                  borderRadius: const BorderRadius.all(Radius.circular(24)),
+                  borderRadius: const BorderRadius.all(Radius.circular(240)),
                   boxShadow: [
                     BoxShadow(
                       color: AppColors.blue.shade200,

@@ -26,7 +26,7 @@ class LankaConnectApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, screenType) => MaterialApp.router(
-        title: ' App',
+        title: 'App',
         theme: AppTheme.lightTheme(),
         localizationsDelegates: [
           ...AppLocalizations.localizationsDelegates,

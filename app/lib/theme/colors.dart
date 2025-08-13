@@ -40,6 +40,9 @@ class AppColors {
   static const darkGreen = Color(0xFF1A2826);
   static const white = Color(0xFFFFFFFF);
   static const yellow = Color(0xFFCB9E2B);
+  static const red50 = Color(0xFFFFF5F4);
+  static const blue50 = Color(0xFFDDEAFE);
+  static const red100 = Color(0xFFFFF5F4);
 
   // shadow
   static const shadow = Color.fromRGBO(0, 0, 0, 0.1);

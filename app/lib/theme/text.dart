@@ -33,14 +33,20 @@ class AppTextStyles {
       color: AppColors.fontColor,
       letterSpacing: 0.2,
       height: 1.2,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       fontFamily: 'DMSans');
 
   static TextStyle headline5 = TextStyle(
       fontSize: 18.sp, // 20
       color: AppColors.fontColor,
       letterSpacing: 0.2,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'DMSans');
+  static TextStyle headline6 = TextStyle(
+      fontSize: 17.08.sp, // 20
+      color: AppColors.fontColor,
+      letterSpacing: 0.2,
+      fontWeight: FontWeight.w600,
       fontFamily: 'DMSans');
   static TextStyle title1 = TextStyle(
       fontSize: 17.08.sp, // 18
