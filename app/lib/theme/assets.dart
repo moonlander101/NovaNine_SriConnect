@@ -33,4 +33,13 @@ class AppAssets {
 
   static const breaking = 'assets/images/breaking.jpg';
   static const breaking2 = 'assets/images/breaking2.jpg';
+
+  static const profile1 = 'assets/svgs/help.svg';
+  static const profile2 = 'assets/svgs/mydocs.svg';
+  static const profile3 = 'assets/svgs/payment.svg';
+  static const profile4 = 'assets/svgs/personalinfo.svg';
+  static const profile5 = 'assets/svgs/settings.svg';
+  static const profile6 = 'assets/svgs/transaction.svg';
+
+  static const idCard = 'assets/svgs/id.svg';
 }

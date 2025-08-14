@@ -35,7 +35,6 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: AppTextStyles.headline5.copyWith(
-          fontWeight: FontWeight.w400,
           color: titleColor ?? AppColors.black.shade900,
         ),
       ),
@@ -55,8 +54,8 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(Dimens.defaultMarginB),
         child: Container(
-          color: Colors.grey.shade300,
-          height: (isLineVisible ?? true) ? 1.0 : 0.0,
+          color: AppColors.blue.shade200,
+          height: (isLineVisible ?? true) ? .75 : 0.0,
         ),
       ),
     );
