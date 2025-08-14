@@ -12,7 +12,8 @@ CREATE TABLE time_slot (
     service_id INTEGER REFERENCES service(service_id) ON DELETE SET NULL,
     start_time TIMESTAMP WITH TIME ZONE,
     end_time TIMESTAMP WITH TIME ZONE,
-    max_appointments INTEGER DEFAULT 1,
+    remaining_appointments INTEGER DEFAULT 1,
+    status timeslot_status DEFAULT 'Pending',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
