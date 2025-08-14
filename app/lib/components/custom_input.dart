@@ -111,18 +111,18 @@ class _CustomTextInputState extends State<CustomTextInput> {
               color: AppColors.black.shade300,
               fontWeight: FontWeight.w400,
             ),
-            focusColor: AppColors.black.shade50,
+            focusColor: AppColors.blue.shade50,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(2 * Dimens.defaultRadiusL),
               borderSide: BorderSide(
-                color: AppColors.black.shade500,
+                color: AppColors.blue.shade500,
                 width: 1,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(2 * Dimens.defaultRadiusL),
               borderSide: BorderSide(
-                color: AppColors.black.shade100,
+                color: AppColors.blue.shade200,
                 width: 1,
               ),
             ),

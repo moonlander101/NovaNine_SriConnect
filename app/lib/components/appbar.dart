@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import '../theme/colors.dart';
@@ -35,8 +34,8 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: AppTextStyles.headline5.copyWith(
-          color: titleColor ?? AppColors.black.shade900,
-        ),
+            color: titleColor ?? AppColors.black.shade900,
+            fontWeight: FontWeight.w500),
       ),
       leading: isBackButtonVisible == true
           ? Padding(
@@ -45,7 +44,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
                 icon: Iconsax.arrow_left_2,
                 iconColor: AppColors.black,
                 backgroundColor: Colors.white,
-                borderColor: AppColors.border,
+                borderColor: AppColors.blue.shade200,
                 size: Dimens.iconSizeL,
                 onPressed: () => Navigator.pop(context),
               ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:lanka_connect/components/appbar.dart';
 import 'package:lanka_connect/l10n/localizations_helper.dart';
 import '../../../components/custom_input.dart';
 import '../../../components/elevated_bottom_bar.dart';
@@ -9,7 +10,6 @@ import '../../../components/margin.dart';
 import '../../../components/primary_button.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/dimens.dart';
-import '../../../theme/text.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -59,10 +59,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(context.l10n.editprofile, style: AppTextStyles.title2),
-      ),
+      backgroundColor: AppColors.blue.shade50,
+      appBar: AppBarCustom(
+          title: context.l10n.editprofile, isBackButtonVisible: true),
       body: Padding(
         padding: const EdgeInsets.all(Dimens.defaultScreenMargin),
         child: Column(
@@ -72,6 +71,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Margin(),
             CustomTextInput(
               labelText: context.l10n.nameasteisk,
+              hintText: context.l10n.nameHint,
               controller: _displayNameController,
               onChanged: (_) => _validateInputs(),
               errorText: _displayNameError,
@@ -79,6 +79,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Gapz(),
             CustomTextInput(
               labelText: context.l10n.phonenumberasterisk,
+              hintText: context.l10n.phoneNumberHint,
               controller: _phoneController,
               keyboardType: TextInputType.phone,
               onChanged: (_) => _validateInputs(),
@@ -91,7 +92,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: PrimaryButton(
           onPressed: _updateProfile,
           label: context.l10n.savechanges,
-          isActive: _canSubmit,
+          isActive: true,
+          isLoading: false,
         ),
       ),
     );
@@ -103,7 +105,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       children: [
         CircleAvatar(
           radius: 50,
-          backgroundColor: AppColors.blue,
+          backgroundColor: AppColors.black,
           child: Text(
             'V',
             style: TextStyle(
@@ -124,7 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             onSelect: _uploadImage,
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.black,
+                color: AppColors.black.shade700,
                 shape: BoxShape.circle,
               ),
               child: CircleAvatar(

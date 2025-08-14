@@ -76,20 +76,20 @@ class _ProfileViewState extends State<ProfileView> {
               ),
               child: Row(
                 children: [
-                    CircleAvatar(
+                  CircleAvatar(
                     radius: 32,
                     backgroundColor: AppColors.blue,
                     child: Text(
                       userName.isNotEmpty && userName != "Guest"
-                        ? userName[0].toUpperCase()
-                        : "?",
+                          ? userName[0].toUpperCase()
+                          : "?",
                       style: AppTextStyles.headline4.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    ),
+                  ),
                   const SizedBox(width: 24),
                   Expanded(
                     child: Column(
@@ -153,10 +153,12 @@ class _ProfileViewState extends State<ProfileView> {
                         categoryIcon(AppAssets.profile2, "My \nDocuments", () {
                           context.push('/');
                         }),
-                        categoryIcon(AppAssets.profile3, "Payment \nMethods", () {
+                        categoryIcon(AppAssets.profile3, "Payment \nMethods",
+                            () {
                           context.push('/');
                         }),
-                        categoryIcon(AppAssets.profile4, "Personal \nInformation", () {
+                        categoryIcon(
+                            AppAssets.profile4, "Personal \nInformation", () {
                           context.push('/');
                         }),
                       ],
@@ -165,16 +167,17 @@ class _ProfileViewState extends State<ProfileView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        categoryIcon(AppAssets.profile1, "Complaints &\n Support",
-                            () {
+                        categoryIcon(
+                            AppAssets.profile1, "Complaints &\n Support", () {
                           context.push('/');
                         }),
-                        categoryIcon(AppAssets.profile6, "Transaction \n History", () {
+                        categoryIcon(
+                            AppAssets.profile6, "Transaction \n History", () {
                           context.push('/');
                         }),
                         categoryIcon(AppAssets.profile5, "Account \nSettings",
                             () {
-                          context.push('/');
+                          context.push('/account-settings');
                         }),
                       ],
                     ),
@@ -182,49 +185,7 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               ),
             ),
-            const SizedBox(height: Dimens.defaultMarginSM),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: sectionTitle(
-                  context.l10n.account.toUpperCase(),
-                )),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: AppColors.border),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      AccountSettingOption(
-                        title: context.l10n.editprofile,
-                        icon: Iconsax.user,
-                        onTap: () => context.push('/edit-profile'),
-                      ),
-                      AccountSettingOption(
-                        title: context.l10n.changepassword,
-                        icon: Iconsax.password_check,
-                        onTap: () => context.push('/change-password'),
-                      ),
-                      AccountSettingOption(
-                        title: context.l10n.languagepreferences,
-                        icon: Iconsax.language_circle,
-                        onTap: () => context.push('/language-preferences'),
-                      ),
-                      AccountSettingOption(
-                        title: context.l10n.locationpreferences,
-                        icon: Iconsax.location,
-                        onTap: () => context.push('/addresses'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+
             const SizedBox(height: 24),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),

@@ -103,6 +103,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 initialValue:
                     widget.address?.addressType.name ?? AddressType.home.name,
                 includeOther: false,
+                
                 onChanged: (val) {
                   setState(() {
                     if (val != null) {

@@ -78,7 +78,7 @@ class SucessDialog extends StatelessWidget {
               Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Align(
-                alignment: Alignment.centerRight,
+                alignment: Alignment.center,
                 child: Text(
                 subText!,
                 style: AppTextStyles.body2,

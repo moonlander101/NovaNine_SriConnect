@@ -118,8 +118,8 @@ class _CustomDropdownInputState extends State<CustomDropdownInput> {
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                 filled: true,
                 fillColor: Colors.white,
-                enabledBorder: _border(AppColors.border),
-                focusedBorder: _border(AppColors.border),
+                enabledBorder: _border(AppColors.blue.shade200),
+                focusedBorder: _border(AppColors.blue.shade200),
               ),
             ),
           ),
@@ -134,9 +134,9 @@ class _CustomDropdownInputState extends State<CustomDropdownInput> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       filled: true,
       fillColor: Colors.white,
-      enabledBorder: _border(AppColors.border),
-      focusedBorder: _border(AppColors.border),
-      border: _border(AppColors.border),
+      enabledBorder: _border(AppColors.blue.shade200),
+      focusedBorder: _border(AppColors.blue),
+      border: _border(AppColors.blue.shade200),
     );
   }
 

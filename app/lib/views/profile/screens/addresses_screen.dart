@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,8 +15,8 @@ class AddressesScreen extends StatelessWidget {
 
   AddressesScreen({super.key, required this.userId});
 
-  // Demo static addresses
   final List<Address> _demoAddresses = [
+    
     Address(
       id: "1",
       name: "Home",
@@ -73,7 +72,7 @@ class AddressesScreen extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: AppColors.border,
+                      color: AppColors.blue.shade200,
                       width: 1,
                     ),
                   ),
@@ -132,7 +131,7 @@ class AddressesScreen extends StatelessWidget {
                                 _navigateToEditAddress(context, address),
                             iconColor: AppColors.darkGreen,
                             backgroundColor: AppColors.white,
-                            borderColor: AppColors.border,
+                            borderColor: AppColors.blue.shade200,
                             size: 20,
                             height: 40,
                           ),
@@ -141,11 +140,10 @@ class AddressesScreen extends StatelessWidget {
                             icon: Icons.delete,
                             iconColor: AppColors.red,
                             backgroundColor: AppColors.white,
-                            borderColor: AppColors.border,
+                            borderColor: AppColors.blue.shade200,
                             size: 20,
                             height: 40,
                             onPressed: () {
-                              // For demo, just remove locally
                               _demoAddresses.removeAt(index);
                               (context as Element).markNeedsBuild();
                             },
