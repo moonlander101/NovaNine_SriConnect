@@ -1,17 +1,7 @@
 import express from 'express'
-import { 
-  getSlots, 
-  getSlotById, 
-  updateSlot, 
-  getAvailableSlots 
-} from './handlers/slots.ts'
 
-import {
-  createAppointment,
-  getAppointmentById,
-  getAppointments,
-  updateAppointmentStatus
-} from './handlers/appointments.ts'
+import {router as appointmentRouter} from "./routers/appointments.router.ts"
+import {router as slotRouter} from "./routers/slots.router.ts"
 import { requireAuth } from "../_shared/middleware/auth.ts";
 
 export const app = express()
@@ -26,12 +16,6 @@ app.get('/service-booking/', (_req,res)=>{
         message : "Hello"
     }).status(200)
 })
-app.get('/service-booking/slots', getSlots)
-app.get('/service-booking/slots/available', getAvailableSlots)
-app.get('/service-booking/slots/:id', getSlotById)
-app.put('/service-booking/slots/:id', updateSlot)
 
-app.post('/service-booking/appointments', createAppointment)
-app.get('/service-booking/appointments/:id', getAppointmentById)
-app.get('/service-booking/appointments', getAppointments)
-app.put('/service-booking/appointments/:id', updateAppointmentStatus)
+app.use(slotRouter)
+app.use(appointmentRouter)
