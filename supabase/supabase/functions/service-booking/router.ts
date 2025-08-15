@@ -9,7 +9,8 @@ import {
 import {
   createAppointment,
   getAppointmentById,
-  getAppointments
+  getAppointments,
+  updateAppointmentStatus
 } from './handlers/appointments.ts'
 
 export const app = express()
@@ -31,3 +32,4 @@ app.put('/service-booking/slots/:id', updateSlot)
 app.post('/service-booking/appointments', createAppointment)
 app.get('/service-booking/appointments/:id', getAppointmentById)
 app.get('/service-booking/appointments', getAppointments)
+app.put('/service-booking/appointments/:id', updateAppointmentStatus)

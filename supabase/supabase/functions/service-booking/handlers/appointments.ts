@@ -282,3 +282,160 @@ export async function getAppointmentById(req: Request, res: Response) {
     return res.status(500).json({ error: 'Internal server error' })
   }
 }
+
+// PUT /appointments/:id - Update appointment status
+export async function updateAppointmentStatus(req: Request, res: Response) {
+  try {
+    const { id: appointmentId } = req.params
+    const { status } = req.body
+    
+    // Extract user token for authentication
+    const token = extractUserToken(req)
+    if (!token) {
+      return res.status(401).json({ error: 'Authentication required' })
+    }
+
+    // Verify user and get role
+    const { user, error: userError } = await getUserFromToken(token)
+    if (userError || !user) {
+      return res.status(401).json({ error: 'Invalid token' })
+    }
+
+    const { role, userId, error: roleError } = await getUserAppData(token, user.id)
+    if (roleError) {
+      return res.status(500).json({ error: 'Failed to get user role' })
+    }
+
+    // Validate status is provided
+    if (!status) {
+      return res.status(400).json({ error: 'Status is required' })
+    }
+
+    // Get the current appointment to check permissions
+    const { data: currentAppointment, error: fetchError } = await adminClient
+      .from('appointment')
+      .select('*')
+      .eq('appointment_id', appointmentId)
+      .single()
+
+    if (fetchError || !currentAppointment) {
+      return res.status(404).json({ error: 'Appointment not found' })
+    }
+
+    // Check permissions based on role
+    if (role === 'Citizen') {
+      // Citizens can only update their own appointments
+      if (currentAppointment.citizen_id !== userId) {
+        return res.status(403).json({ error: 'Access denied. You can only update your own appointments.' })
+      }
+      
+      // Citizens can only cancel or confirm
+      if (!['Canceled', 'Confirmed'].includes(status)) {
+        return res.status(403).json({ 
+          error: 'Citizens can only cancel or confirm appointments' 
+        })
+      }
+    } else if (role === 'Officer') {
+      // Officers can only update appointments they're assigned to
+      if (currentAppointment.officer_id !== userId) {
+        return res.status(403).json({ 
+          error: 'Access denied. You can only update appointments assigned to you.' 
+        })
+      }
+      
+      // Officers can only cancel or confirm
+      if (!['Canceled', 'Confirmed'].includes(status)) {
+        return res.status(403).json({ 
+          error: 'Officers can only cancel or confirm appointments' 
+        })
+      }
+    }
+    // Admins can update any appointment to any status (no restrictions)
+
+    // Validate the status value
+    const validStatuses = ['Pending', 'Confirmed', 'Completed', 'Canceled', 'Absent']
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ 
+        error: `Invalid status. Must be one of: ${validStatuses.join(', ')}` 
+      })
+    }
+
+    // Check if the appointment can be updated (business logic)
+    if (currentAppointment.status === 'Completed') {
+      console.error("Cannot update status of completed appointments")
+      return res.status(400).json({ 
+        error: 'Cannot update status' 
+      })
+    }
+
+    // If canceling an appointment, use the RPC function to restore remaining appointments
+    if (status === 'Canceled' && currentAppointment.status !== 'Canceled') {
+      const { data: cancelResult, error: cancelError } = await adminClient
+        .rpc('cancel_appointment_with_slot_update', {
+          p_appointment_id: parseInt(appointmentId)
+        })
+
+      if (cancelError) {
+        return res.status(500).json({ error: `Database error: ${cancelError.message}` })
+      }
+
+      if (!cancelResult.success) {
+        return res.status(400).json({ error: cancelResult.error })
+      }
+
+      // Get updated appointment details
+      const { data: updatedAppointment, error: _detailsError } = await adminClient
+        .rpc('get_appointment_with_details', {
+          p_appointment_id: parseInt(appointmentId)
+        })
+
+      return res.status(200).json({
+        message: 'Appointment status updated successfully',
+        data: updatedAppointment.success ? updatedAppointment.data : { appointment_id: appointmentId, status: 'Canceled' }
+      })
+    }
+
+    // For other status updates, use regular update
+    const { data: updatedAppointment, error: updateError } = await adminClient
+      .from('appointment')
+      .update({ 
+        status: status,
+        updated_at: new Date().toISOString()
+      })
+      .eq('appointment_id', appointmentId)
+      .select(`
+        *,
+        service:service_id (
+          title,
+          department:department_id (
+            title
+          )
+        ),
+        timeslot:timeslot_id (
+          start_time,
+          end_time
+        ),
+        citizen:citizen_id (
+          full_name,
+          email
+        ),
+        officer:officer_id (
+          full_name,
+          email
+        )
+      `)
+      .single()
+
+    if (updateError) {
+      return res.status(400).json({ error: updateError.message })
+    }
+
+    return res.status(200).json({
+      message: 'Appointment status updated successfully',
+      data: updatedAppointment
+    })
+  } catch (_error) {
+    console.error('Update appointment status error:', _error)
+    return res.status(500).json({ error: 'Internal server error' })
+  }
+}
