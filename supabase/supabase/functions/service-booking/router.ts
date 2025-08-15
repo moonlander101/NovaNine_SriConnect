@@ -6,6 +6,12 @@ import {
   getAvailableSlots 
 } from './handlers/slots.ts'
 
+import {
+  createAppointment,
+  getAppointmentById,
+  getAppointments
+} from './handlers/appointments.ts'
+
 export const app = express()
   
 // Middleware
@@ -21,3 +27,7 @@ app.get('/service-booking/slots', getSlots)
 app.get('/service-booking/slots/available', getAvailableSlots)
 app.get('/service-booking/slots/:id', getSlotById)
 app.put('/service-booking/slots/:id', updateSlot)
+
+app.post('/service-booking/appointments', createAppointment)
+app.get('/service-booking/appointments/:id', getAppointmentById)
+app.get('/service-booking/appointments', getAppointments)

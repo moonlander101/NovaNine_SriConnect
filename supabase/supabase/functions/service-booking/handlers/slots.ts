@@ -1,5 +1,5 @@
 import type { Request, Response } from 'npm:@types/express@4.17.17'
-import { getUserFromToken, getUserRole } from '../../_shared/supabaseClient.ts'
+import { getUserFromToken, getUserAppData } from '../../_shared/supabaseClient.ts'
 import { extractUserToken } from "../../_shared/utils.ts"
 import { supabase as adminClient } from '../../_shared/supabaseAdmin.ts'
 import {SlotUpdateData, TimeslotStatus, TimeSlot} from "../../_shared/types.ts"
@@ -21,7 +21,7 @@ export async function getSlots(req: Request, res: Response) {
       return res.status(401).json({ error: 'Invalid token' })
     }
 
-    const { role, error: roleError } = await getUserRole(token, user.id)
+    const { role, error: roleError } = await getUserAppData(token, user.id)
     if (roleError) {
       return res.status(500).json({ error: 'Failed to get user role' })
     }
@@ -99,7 +99,7 @@ export async function getSlotById(req: Request, res: Response) {
       return res.status(401).json({ error: 'Invalid token' })
     }
 
-    const { role, error: roleError } = await getUserRole(token, user.id)
+    const { role, error: roleError } = await getUserAppData(token, user.id)
     if (roleError) {
       return res.status(500).json({ error: 'Failed to get user role' })
     }
@@ -166,7 +166,7 @@ export async function updateSlot(req: Request, res: Response) {
       return res.status(401).json({ error: 'Invalid token' })
     }
 
-    const { role, error: roleError } = await getUserRole(token, user.id)
+    const { role, error: roleError } = await getUserAppData(token, user.id)
     if (roleError) {
       return res.status(500).json({ error: 'Failed to get user role' })
     }
@@ -255,7 +255,7 @@ export async function getAvailableSlots(req: Request, res: Response) {
       return res.status(401).json({ error: 'Invalid token' })
     }
 
-    const { role, error: roleError } = await getUserRole(token, user.id)
+    const { role, error: roleError } = await getUserAppData(token, user.id)
     if (roleError) {
       return res.status(500).json({ error: 'Failed to get user role' })
     }

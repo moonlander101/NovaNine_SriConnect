@@ -46,7 +46,7 @@ export const extractUserToken = (req: { get?: (name: string) => string | undefin
 }
 
 // Helper to get user role from database using auth mapping
-export const getUserRole = async (_token: string, authUserId: string) => {
+export const getUserAppData = async (_token: string, authUserId: string) => {
   const client = adminClient
 
   const {data: authData, error: authError} = await client
