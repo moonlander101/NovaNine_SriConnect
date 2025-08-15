@@ -1,31 +1,39 @@
 import type { Request, Response } from 'npm:@types/express@4.17.17'
-import { supabase } from '../../_shared/supabaseAdmin.ts'
+import { getUserFromToken, getUserRole } from '../../_shared/supabaseClient.ts'
+import { extractUserToken } from "../../_shared/utils.ts"
+import { supabase as adminClient } from '../../_shared/supabaseAdmin.ts'
+import {SlotUpdateData, TimeslotStatus, TimeSlot} from "../../_shared/types.ts"
 
-// Database table interfaces matching the schema
-interface TimeSlot {
-  timeslot_id?: number
-  service_id: number
-  start_time: string // TIMESTAMP WITH TIME ZONE
-  end_time: string   // TIMESTAMP WITH TIME ZONE
-  remaining_appointments: number // INTEGER DEFAULT 1
-  status?: 'Pending' | 'Available'
-  created_at?: string // TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-}
-
-interface SlotUpdateData {
-  service_id?: number
-  start_time?: string
-  end_time?: string
-  remaining_appointments?: number
-  status?: 'Pending' | 'Available'
-}
-
-// GET /slots - Get all slots with optional filters
+// GET /slots - Get all slots with optional filters (Officer/Admin only)
 export async function getSlots(req: Request, res: Response) {
   try {
     const { service_id, status, date, limit = '50' } = req.query
+    
+    // Extract user token for authentication
+    const token = extractUserToken(req)
+    if (!token) {
+      return res.status(401).json({ error: 'Authentication required' })
+    }
 
-    let query = supabase
+    // Verify user and get role
+    const { user, error: userError } = await getUserFromToken(token)
+    if (userError || !user) {
+      return res.status(401).json({ error: 'Invalid token' })
+    }
+
+    const { role, error: roleError } = await getUserRole(token, user.id)
+    if (roleError) {
+      return res.status(500).json({ error: 'Failed to get user role' })
+    }
+
+    // Only Officers and Admins can access all slots
+    if (role !== 'Admin' || role !== 'Officer') {
+      return res.status(403).json({ error: 'Access denied.' })
+    }
+
+    const supabaseClient = adminClient
+
+    let query = supabaseClient
       .from('time_slot')
       .select(`
         *,
@@ -74,12 +82,35 @@ export async function getSlots(req: Request, res: Response) {
   }
 }
 
-// GET /slots/:id - Get specific slot
+// GET /slots/:id - Get specific slot (Officer/Admin only)
 export async function getSlotById(req: Request, res: Response) {
   try {
     const { id: timeslotId } = req.params
+    
+    // Extract user token for authentication
+    const token = extractUserToken(req)
+    if (!token) {
+      return res.status(401).json({ error: 'Authentication required' })
+    }
 
-    const { data, error } = await supabase
+    // Verify user and get role
+    const { user, error: userError } = await getUserFromToken(token)
+    if (userError || !user) {
+      return res.status(401).json({ error: 'Invalid token' })
+    }
+
+    const { role, error: roleError } = await getUserRole(token, user.id)
+    if (roleError) {
+      return res.status(500).json({ error: 'Failed to get user role' })
+    }
+    console.log(role)
+    if (role !== 'Admin' && role !== 'Officer') {
+      return res.status(403).json({ error: 'Access denied' })
+    }
+
+    const supabaseClient = adminClient
+
+    const { data, error } = await supabaseClient
       .from('time_slot')
       .select(`
         *,
@@ -117,17 +148,40 @@ export async function getSlotById(req: Request, res: Response) {
   }
 }
 
-// PUT /slots/:id - Update slot status or remaining appointments
+// PUT /slots/:id - Update slot status or remaining appointments (Admin only)
 export async function updateSlot(req: Request, res: Response) {
   try {
     const { id: timeslotId } = req.params
     const body: SlotUpdateData = req.body
+    
+    // Extract user token for authentication
+    const token = extractUserToken(req)
+    if (!token) {
+      return res.status(401).json({ error: 'Authentication required' })
+    }
+
+    // Verify user and get role
+    const { user, error: userError } = await getUserFromToken(token)
+    if (userError || !user) {
+      return res.status(401).json({ error: 'Invalid token' })
+    }
+
+    const { role, error: roleError } = await getUserRole(token, user.id)
+    if (roleError) {
+      return res.status(500).json({ error: 'Failed to get user role' })
+    }
+
+    // Only Admins can update slots (Officers have read-only access)
+    if (role !== 'Admin') {
+      return res.status(403).json({ error: 'Access denied. Only Admins can update slots.' })
+    }
 
     // Build update object with only provided fields
     const updateData: Partial<TimeSlot> = {}
     
     if (body.status !== undefined) {
-      if (!['Pending', 'Available'].includes(body.status)) {
+      const validStatuses: TimeslotStatus[] = ['Pending', 'Available']
+      if (!validStatuses.includes(body.status)) {
         return res.status(400).json({ error: 'Invalid status. Must be Pending or Available' })
       }
       updateData.status = body.status
@@ -162,7 +216,7 @@ export async function updateSlot(req: Request, res: Response) {
       return res.status(400).json({ error: 'No valid fields to update' })
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await adminClient
       .from('time_slot')
       .update(updateData)
       .eq('timeslot_id', timeslotId)
@@ -190,8 +244,25 @@ export async function updateSlot(req: Request, res: Response) {
 export async function getAvailableSlots(req: Request, res: Response) {
   try {
     const { service_id, from_date, to_date } = req.query
+    
+    const token = extractUserToken(req)
+    if (!token) {
+      return res.status(401).json({ error: 'Authentication required' })
+    }
 
-    let query = supabase
+    const { user, error: userError } = await getUserFromToken(token)
+    if (userError || !user) {
+      return res.status(401).json({ error: 'Invalid token' })
+    }
+
+    const { role, error: roleError } = await getUserRole(token, user.id)
+    if (roleError) {
+      return res.status(500).json({ error: 'Failed to get user role' })
+    }
+
+    const supabaseClient = adminClient
+
+    let query = supabaseClient
       .from('time_slot')
       .select(`
         *,
@@ -202,10 +273,14 @@ export async function getAvailableSlots(req: Request, res: Response) {
           )
         )
       `)
-      .eq('status', 'Available')
-      .gt('remaining_appointments', 0)
-      .gte('start_time', new Date().toISOString()) // Only future slots
       .order('start_time', { ascending: true })
+
+    if (role !== 'Citizen') {
+      query = query
+        .eq('status', 'Available')
+        .gt('remaining_appointments', 0)
+        .gte('start_time', new Date().toISOString())
+    }
 
     if (service_id) {
       query = query.eq('service_id', service_id)
