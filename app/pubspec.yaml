@@ -58,6 +58,7 @@ dependencies:
   supabase_flutter: ^2.9.1
   flutter_dotenv: ^5.2.1
   floating_bottom_bar: ^0.0.3
+  u_credit_card: ^1.4.0
 
 dev_dependencies:
   flutter_test:

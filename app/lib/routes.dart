@@ -7,6 +7,10 @@ import 'views/profile/screens/addresses_screen.dart';
 import 'views/profile/screens/change_password_screen.dart';
 import 'views/profile/screens/edit_profile_screen.dart';
 import 'views/profile/screens/language_preference_screen.dart';
+import 'views/profile/screens/my_documents_screen.dart';
+import 'views/profile/screens/payment_details_screen.dart';
+import 'views/profile/screens/personal_info_screen.dart';
+import 'views/profile/screens/transactions_history_screen.dart';
 
 final router = GoRouter(
   initialLocation: "/",
@@ -41,7 +45,7 @@ final router = GoRouter(
       builder: (context, state) {
         final address = state.extra as Address?;
 
-        return AddAddressScreen(address: address); // <-- this allows edit
+        return AddAddressScreen(address: address);
       },
     ),
     GoRoute(
@@ -51,5 +55,29 @@ final router = GoRouter(
         return AddressesScreen(userId: userId);
       },
     ),
+    GoRoute(
+      path: '/my-documents',
+      builder: (context, state) {
+        return const MyDocumentsScreen();
+      },
+    ),
+    GoRoute(
+      path: '/personal-information',
+      builder: (context, state) {
+        return const PersonalInfoScreen();
+      },
+    ),
+    GoRoute(
+      path: '/payment-methods',
+      builder: (context, state) {
+        return const PaymentDetailsScreen();
+      },
+    ),
+    GoRoute(
+      path: '/transaction-history',
+      builder: (context, state) {
+        return const TransactionsHistoryScreen();
+      },
+    )
   ],
 );

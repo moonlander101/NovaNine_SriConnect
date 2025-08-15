@@ -151,15 +151,15 @@ class _ProfileViewState extends State<ProfileView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         categoryIcon(AppAssets.profile2, "My \nDocuments", () {
-                          context.push('/');
+                          context.push('/my-documents');
                         }),
                         categoryIcon(AppAssets.profile3, "Payment \nMethods",
                             () {
-                          context.push('/');
+                          context.push('/payment-methods');
                         }),
                         categoryIcon(
                             AppAssets.profile4, "Personal \nInformation", () {
-                          context.push('/');
+                          context.push('/personal-information');
                         }),
                       ],
                     ),
@@ -169,11 +169,11 @@ class _ProfileViewState extends State<ProfileView> {
                       children: [
                         categoryIcon(
                             AppAssets.profile1, "Complaints &\n Support", () {
-                          context.push('/');
+                          context.push('/complaints-support');
                         }),
                         categoryIcon(
                             AppAssets.profile6, "Transaction \n History", () {
-                          context.push('/');
+                          context.push('/transaction-history');
                         }),
                         categoryIcon(AppAssets.profile5, "Account \nSettings",
                             () {
@@ -185,7 +185,6 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               ),
             ),
-
             const SizedBox(height: 24),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -199,7 +198,7 @@ class _ProfileViewState extends State<ProfileView> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: AppColors.border),
+                  border: Border.all(color: AppColors.blue.shade200),
                 ),
                 child: Column(
                   children: [
@@ -234,7 +233,7 @@ class _ProfileViewState extends State<ProfileView> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: AppColors.border),
+                  border: Border.all(color: AppColors.blue.shade200),
                 ),
                 child: Column(
                   children: [
