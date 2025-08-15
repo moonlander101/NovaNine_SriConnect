@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test/screens/login_screen.dart';
+import 'login_screen.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test/screens/success_screen.dart';
+import 'success_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});

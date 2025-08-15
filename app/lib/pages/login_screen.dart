@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test/screens/otp_verification_screen.dart';
+import 'otp_verification_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
