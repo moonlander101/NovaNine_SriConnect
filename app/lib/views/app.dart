@@ -44,16 +44,16 @@ class _AppState extends State<App> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Iconsax.link_1),
-                label: 'Links',
+                icon: Icon(Iconsax.task_square),
+                label: 'Submissions',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Iconsax.dollar_circle),
-                label: 'Payme',
+                label: 'x',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Iconsax.wallet),
-                label: 'Wallet',
+                icon: Icon(Iconsax.calendar_1),
+                label: 'Bookings',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Iconsax.user),
