@@ -194,76 +194,76 @@ INSERT INTO required_doc_for_service (service_id, doc_type_id, is_mandatory) VAL
 -- ============================================================================
 -- 7. TIME SLOTS (Next 30 days)
 -- ============================================================================
-INSERT INTO time_slot (service_id, start_time, end_time, max_appointments) VALUES
+INSERT INTO time_slot (service_id, start_time, end_time, remaining_appointments, status) VALUES
 -- Education Department Time Slots
-(1, '2025-08-17 10:00:00+05:30', '2025-08-17 11:00:00+05:30', 8),
-(1, '2025-08-17 11:00:00+05:30', '2025-08-17 12:00:00+05:30', 8),
-(2, '2025-08-18 09:00:00+05:30', '2025-08-18 10:00:00+05:30', 6),
-(2, '2025-08-18 10:00:00+05:30', '2025-08-18 11:00:00+05:30', 6),
+(1, '2025-08-17 10:00:00+05:30', '2025-08-17 11:00:00+05:30', 8, 'Available'),
+(1, '2025-08-17 11:00:00+05:30', '2025-08-17 12:00:00+05:30', 8, 'Available'),
+(2, '2025-08-18 09:00:00+05:30', '2025-08-18 10:00:00+05:30', 6, 'Available'),
+(2, '2025-08-18 10:00:00+05:30', '2025-08-18 11:00:00+05:30', 6, 'Available'),
 
 -- Transport Department Time Slots
-(5, '2025-08-19 08:00:00+05:30', '2025-08-19 12:00:00+05:30', 15),
-(6, '2025-08-19 13:00:00+05:30', '2025-08-19 16:00:00+05:30', 12),
-(7, '2025-08-20 09:00:00+05:30', '2025-08-20 11:00:00+05:30', 10),
-(8, '2025-08-20 14:00:00+05:30', '2025-08-20 16:00:00+05:30', 8),
+(5, '2025-08-19 08:00:00+05:30', '2025-08-19 12:00:00+05:30', 15, 'Available'),
+(6, '2025-08-19 13:00:00+05:30', '2025-08-19 16:00:00+05:30', 12, 'Available'),
+(7, '2025-08-20 09:00:00+05:30', '2025-08-20 11:00:00+05:30', 10, 'Available'),
+(8, '2025-08-20 14:00:00+05:30', '2025-08-20 16:00:00+05:30', 8, 'Available'),
 
 -- Revenue Department Time Slots
-(9, '2025-08-21 10:00:00+05:30', '2025-08-21 12:00:00+05:30', 20),
-(10, '2025-08-21 13:00:00+05:30', '2025-08-21 15:00:00+05:30', 15),
-(11, '2025-08-22 10:00:00+05:30', '2025-08-22 12:00:00+05:30', 12),
+(9, '2025-08-21 10:00:00+05:30', '2025-08-21 12:00:00+05:30', 20, 'Available'),
+(10, '2025-08-21 13:00:00+05:30', '2025-08-21 15:00:00+05:30', 15, 'Available'),
+(11, '2025-08-22 10:00:00+05:30', '2025-08-22 12:00:00+05:30', 12, 'Available'),
 
 -- Registration Department Time Slots
-(12, '2025-08-23 09:00:00+05:30', '2025-08-23 12:00:00+05:30', 25),
-(13, '2025-08-23 14:00:00+05:30', '2025-08-23 16:00:00+05:30', 10),
-(14, '2025-08-24 10:00:00+05:30', '2025-08-24 12:00:00+05:30', 15),
+(12, '2025-08-23 09:00:00+05:30', '2025-08-23 12:00:00+05:30', 25, 'Available'),
+(13, '2025-08-23 14:00:00+05:30', '2025-08-23 16:00:00+05:30', 10, 'Available'),
+(14, '2025-08-24 10:00:00+05:30', '2025-08-24 12:00:00+05:30', 15, 'Available'),
 
 -- Immigration Department Time Slots
-(15, '2025-08-25 09:00:00+05:30', '2025-08-25 12:00:00+05:30', 30),
-(16, '2025-08-25 13:00:00+05:30', '2025-08-25 16:00:00+05:30', 20),
-(17, '2025-08-26 10:00:00+05:30', '2025-08-26 12:00:00+05:30', 5);
+(15, '2025-08-25 09:00:00+05:30', '2025-08-25 12:00:00+05:30', 30, 'Available'),
+(16, '2025-08-25 13:00:00+05:30', '2025-08-25 16:00:00+05:30', 20, 'Available'),
+(17, '2025-08-26 10:00:00+05:30', '2025-08-26 12:00:00+05:30', 5, 'Available');
 
 -- ============================================================================
 -- 8. APPOINTMENTS (Current and upcoming)
 -- ============================================================================
 INSERT INTO appointment (citizen_id, officer_id, service_id, timeslot_id, status) VALUES
--- Current Appointments
-(1, 5, 1, 1, 'Confirmed'),
-(2, 6, 2, 3, 'Pending'),
-(3, 7, 5, 5, 'Confirmed'),
-(4, 8, 6, 6, 'Pending'),
+-- Current Appointments (Citizens: 8-15, Officers: 2-7)
+(8, 2, 1, 1, 'Confirmed'),    -- John Doe -> Prof. Kamal Silva (Education)
+(9, 2, 2, 3, 'Pending'),      -- Jane Smith -> Prof. Kamal Silva (Education)
+(10, 3, 5, 5, 'Confirmed'),   -- Raj Patel -> Eng. Nimal Fernando (Transport)
+(11, 7, 6, 6, 'Pending'),     -- Sara Johnson -> Mr. Ruwan Gunaratne (Transport)
 
 -- Upcoming Appointments  
-(5, 9, 9, 9, 'Confirmed'),
-(6, 10, 10, 10, 'Pending'),
-(7, 11, 12, 12, 'Confirmed'),
-(8, 12, 13, 13, 'Pending'),
+(12, 4, 9, 9, 'Confirmed'),   -- Mike Brown -> CA. Priya Rajapaksa (Revenue)
+(13, 4, 10, 10, 'Pending'),   -- Lisa Wong -> CA. Priya Rajapaksa (Revenue)
+(14, 5, 12, 12, 'Confirmed'), -- David Chen -> Mrs. Kumari Wickrama (Registration)
+(15, 5, 13, 13, 'Pending'),   -- Maria Rodriguez -> Mrs. Kumari Wickrama (Registration)
 
 -- Immigration Appointments
-(1, 13, 15, 15, 'Confirmed'),
-(2, 14, 16, 16, 'Pending');
+(8, 6, 15, 15, 'Confirmed'),  -- John Doe -> Mr. Sunil Jayawardena (Immigration)
+(9, 6, 16, 16, 'Pending');    -- Jane Smith -> Mr. Sunil Jayawardena (Immigration)
 
 -- ============================================================================
 -- 9. SAMPLE USER DOCUMENTS
 -- ============================================================================
 INSERT INTO user_document (user_id, doc_type_id, file_path, verification_status) VALUES
--- Amara Wijesekera documents
-(1, 1, '/documents/users/1/national_id.pdf', 'Approved'),
-(1, 2, '/documents/users/1/birth_certificate.pdf', 'Approved'),
+-- John Doe documents (user_id: 8)
+(8, 1, '/documents/users/8/national_id.pdf', 'Approved'),
+(8, 2, '/documents/users/8/birth_certificate.pdf', 'Approved'),
 
--- Kasun Perera documents  
-(2, 1, '/documents/users/2/national_id.pdf', 'Approved'),
-(2, 7, '/documents/users/2/degree_certificate.pdf', 'Approved'),
-(2, 6, '/documents/users/2/medical_report.pdf', 'Approved'),
+-- Jane Smith documents (user_id: 9)
+(9, 1, '/documents/users/9/national_id.pdf', 'Approved'),
+(9, 7, '/documents/users/9/degree_certificate.pdf', 'Approved'),
+(9, 6, '/documents/users/9/medical_report.pdf', 'Approved'),
 
--- Thilini Fernando documents
-(3, 1, '/documents/users/3/national_id.pdf', 'Approved'),
-(3, 6, '/documents/users/3/medical_report.pdf', 'Pending'),
-(3, 5, '/documents/users/3/utility_bill.pdf', 'Approved'),
+-- Raj Patel documents (user_id: 10)
+(10, 1, '/documents/users/10/national_id.pdf', 'Approved'),
+(10, 6, '/documents/users/10/medical_report.pdf', 'Pending'),
+(10, 5, '/documents/users/10/utility_bill.pdf', 'Approved'),
 
--- Ruwan Silva documents
-(4, 1, '/documents/users/4/national_id.pdf', 'Approved'),
-(4, 9, '/documents/users/4/income_certificate.pdf', 'Approved'),
-(4, 11, '/documents/users/4/bank_statement.pdf', 'Approved');
+-- Sara Johnson documents (user_id: 11)
+(11, 1, '/documents/users/11/national_id.pdf', 'Approved'),
+(11, 9, '/documents/users/11/income_certificate.pdf', 'Approved'),
+(11, 11, '/documents/users/11/bank_statement.pdf', 'Approved');
 
 -- ============================================================================
 -- 10. SAMPLE APPOINTMENT DOCUMENTS
@@ -279,29 +279,29 @@ INSERT INTO appointment_document (appointment_id, file_path, doc_type, verificat
 -- 11. SAMPLE NOTIFICATIONS
 -- ============================================================================
 INSERT INTO notification (appointment_id, citizen_id, type, message, send_via, send_time) VALUES
-(1, 1, 'Confirmation', 'Your University Certificate Verification appointment has been confirmed for 2025-08-17 at 10:00 AM', 'Both', '2025-08-16 10:00:00+05:30'),
-(2, 2, 'Confirmation', 'Your School Transfer Application appointment is confirmed for 2025-08-18 at 09:00 AM', 'Email', '2025-08-16 11:00:00+05:30'),
-(3, 3, 'Reminder', 'Reminder: Your Driving License appointment is tomorrow at 08:00 AM. Please bring all required documents.', 'SMS', '2025-08-18 18:00:00+05:30'),
-(4, 4, 'Confirmation', 'Your License Renewal appointment is confirmed for 2025-08-19 at 13:00 PM', 'Both', '2025-08-16 14:00:00+05:30'),
-(5, 5, 'Update', 'Your Property Tax Payment has been processed successfully', 'Both', '2025-08-16 16:00:00+05:30');
+(1, 8, 'Confirmation', 'Your Birth Certificate Issuance appointment has been confirmed for 2025-08-17 at 10:00 AM', 'Both', '2025-08-16 10:00:00+05:30'),
+(2, 9, 'Confirmation', 'Your Educational Transcript Request appointment is confirmed for 2025-08-18 at 09:00 AM', 'Email', '2025-08-16 11:00:00+05:30'),
+(3, 10, 'Reminder', 'Reminder: Your Driving License appointment is tomorrow at 08:00 AM. Please bring all required documents.', 'SMS', '2025-08-18 18:00:00+05:30'),
+(4, 11, 'Confirmation', 'Your Vehicle Registration appointment is confirmed for 2025-08-19 at 13:00 PM', 'Both', '2025-08-16 14:00:00+05:30'),
+(5, 12, 'Update', 'Your Tax Clearance Certificate has been processed successfully', 'Both', '2025-08-16 16:00:00+05:30');
 
 -- ============================================================================
 -- 12. SAMPLE MESSAGES
 -- ============================================================================
 INSERT INTO message (appointment_id, sender_id, receiver_id, message) VALUES
-(1, 5, 1, 'Please ensure you bring the original university certificates along with the photocopies.'),
-(1, 1, 5, 'Thank you for the information. I will bring all required documents.'),
-(2, 6, 2, 'Your school transfer request is being processed. You will receive confirmation within 3 working days.'),
-(3, 7, 3, 'Your driving test is scheduled for 08:00 AM. Please arrive 30 minutes early with medical certificate.'),
-(4, 8, 4, 'All your license renewal documents have been verified. New license will be issued after the appointment.');
+(1, 2, 8, 'Please ensure you bring the original birth documentation along with the photocopies.'),
+(1, 8, 2, 'Thank you for the information. I will bring all required documents.'),
+(2, 2, 9, 'Your educational transcript request is being processed. You will receive confirmation within 3 working days.'),
+(3, 3, 10, 'Your driving test is scheduled for 08:00 AM. Please arrive 30 minutes early with medical certificate.'),
+(4, 7, 11, 'All your vehicle registration documents have been verified. Registration will be completed after the appointment.');
 
 -- ============================================================================
 -- 13. SAMPLE COMPLAINTS
 -- ============================================================================
 INSERT INTO complaint (citizen_id, appointment_id, title, field, type) VALUES
-(3, 3, 'Long waiting time', 'Service Quality', 'Process Delay'),
-(1, 1, 'Unclear document requirements', 'Information', 'Communication Issue'),
-(2, 2, 'Officer was not available at scheduled time', 'Staff Availability', 'Scheduling Issue');
+(10, 3, 'Long waiting time', 'Service Quality', 'Process Delay'),
+(8, 1, 'Unclear document requirements', 'Information', 'Communication Issue'),
+(9, 2, 'Officer was not available at scheduled time', 'Staff Availability', 'Scheduling Issue');
 
 -- ============================================================================
 -- 14. SAMPLE FEEDBACK
