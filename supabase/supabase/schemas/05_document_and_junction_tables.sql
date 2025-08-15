@@ -26,7 +26,7 @@ CREATE TABLE appointment_document (
     appointment_doc_id SERIAL PRIMARY KEY,
     appointment_id INTEGER REFERENCES appointment(appointment_id) ON DELETE CASCADE,
     file_path VARCHAR(500),
-    doc_type VARCHAR(255),
+    doc_type INTEGER REFERENCES document_type(doc_type_id) ON DELETE CASCADE,
     uploaded_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     verification_status verification_status DEFAULT 'Pending',
     review TEXT
