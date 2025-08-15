@@ -1,21 +1,23 @@
 import type { Request, Response } from 'npm:@types/express@4.17.17'
-import { supabase } from '../../_shared/supabaseClient.ts'
+import { supabase } from '../../_shared/supabaseAdmin.ts'
 
+// Database table interfaces matching the schema
 interface TimeSlot {
   timeslot_id?: number
   service_id: number
-  start_time: string
-  end_time: string
-  remaining_appointments: number
+  start_time: string // TIMESTAMP WITH TIME ZONE
+  end_time: string   // TIMESTAMP WITH TIME ZONE
+  remaining_appointments: number // INTEGER DEFAULT 1
   status?: 'Pending' | 'Available'
-  created_at?: string
+  created_at?: string // TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 }
 
 interface SlotUpdateData {
-  status?: 'Pending' | 'Available'
-  remaining_appointments?: number
+  service_id?: number
   start_time?: string
   end_time?: string
+  remaining_appointments?: number
+  status?: 'Pending' | 'Available'
 }
 
 // GET /slots - Get all slots with optional filters
