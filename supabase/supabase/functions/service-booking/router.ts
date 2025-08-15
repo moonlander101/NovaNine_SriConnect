@@ -12,11 +12,13 @@ import {
   getAppointments,
   updateAppointmentStatus
 } from './handlers/appointments.ts'
+import { requireAuth } from "../_shared/middleware/auth.ts";
 
 export const app = express()
   
 // Middleware
 app.use(express.json())
+app.use(requireAuth)
 
 // Slot routes
 app.get('/service-booking/', (_req,res)=>{

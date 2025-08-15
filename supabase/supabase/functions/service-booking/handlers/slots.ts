@@ -1,73 +1,28 @@
 import type { Request, Response } from 'npm:@types/express@4.17.17'
-import { getUserFromToken, getUserAppData } from '../../_shared/supabaseClient.ts'
-import { extractUserToken } from "../../_shared/utils.ts"
-import { supabase as adminClient } from '../../_shared/supabaseAdmin.ts'
 import {SlotUpdateData, TimeslotStatus, TimeSlot} from "../../_shared/types.ts"
+import { MiddlewareRequest } from "../../_shared/middleware/auth.ts";
+import { getSlotsQuery, getSlotByIdQuery, updateSlotQuery, availableSlotQuery } from "../queries/slot.queries.ts";
 
 // GET /slots - Get all slots with optional filters (Officer/Admin only)
 export async function getSlots(req: Request, res: Response) {
   try {
     const { service_id, status, date, limit = '50' } = req.query
     
-    // Extract user token for authentication
-    const token = extractUserToken(req)
-    if (!token) {
-      return res.status(401).json({ error: 'Authentication required' })
-    }
+    const mReq = req as MiddlewareRequest    
+    const app_user = mReq.app_user
 
-    // Verify user and get role
-    const { user, error: userError } = await getUserFromToken(token)
-    if (userError || !user) {
-      return res.status(401).json({ error: 'Invalid token' })
-    }
+    const role = app_user.role
 
-    const { role, error: roleError } = await getUserAppData(token, user.id)
-    if (roleError) {
-      return res.status(500).json({ error: 'Failed to get user role' })
-    }
-
-    // Only Officers and Admins can access all slots
-    if (role !== 'Admin' || role !== 'Officer') {
+    if (role !== 'Admin' && role !== 'Officer') {
       return res.status(403).json({ error: 'Access denied.' })
     }
 
-    const supabaseClient = adminClient
-
-    let query = supabaseClient
-      .from('time_slot')
-      .select(`
-        *,
-        service:service_id (
-          title,
-          department:department_id (
-            title
-          )
-        )
-      `)
-      .order('start_time', { ascending: true })
-      .limit(parseInt(limit as string))
-
-    // Apply filters
-    if (service_id) {
-      query = query.eq('service_id', service_id)
-    }
-
-    if (status) {
-      query = query.eq('status', status)
-    }
-
-    if (date) {
-      const startOfDay = new Date(date as string)
-      startOfDay.setHours(0, 0, 0, 0)
-      const endOfDay = new Date(date as string)
-      endOfDay.setHours(23, 59, 59, 999)
-      
-      query = query
-        .gte('start_time', startOfDay.toISOString())
-        .lte('start_time', endOfDay.toISOString())
-    }
-
-    const { data, error } = await query
+    const { data, error } = await getSlotsQuery({
+      service_id : service_id as string || undefined,
+      status : status as string || undefined,
+      date : date as string,
+      limit : limit as string
+    })
 
     if (error) {
       return res.status(400).json({ error: error.message })
@@ -88,56 +43,15 @@ export async function getSlotById(req: Request, res: Response) {
     const { id: timeslotId } = req.params
     
     // Extract user token for authentication
-    const token = extractUserToken(req)
-    if (!token) {
-      return res.status(401).json({ error: 'Authentication required' })
-    }
+    const mReq = req as MiddlewareRequest
+    const app_user = mReq.app_user
+    const role = app_user.role
 
-    // Verify user and get role
-    const { user, error: userError } = await getUserFromToken(token)
-    if (userError || !user) {
-      return res.status(401).json({ error: 'Invalid token' })
-    }
-
-    const { role, error: roleError } = await getUserAppData(token, user.id)
-    if (roleError) {
-      return res.status(500).json({ error: 'Failed to get user role' })
-    }
-    console.log(role)
     if (role !== 'Admin' && role !== 'Officer') {
       return res.status(403).json({ error: 'Access denied' })
     }
 
-    const supabaseClient = adminClient
-
-    const { data, error } = await supabaseClient
-      .from('time_slot')
-      .select(`
-        *,
-        service:service_id (
-          title,
-          description,
-          department:department_id (
-            title,
-            description
-          )
-        ),
-        appointments:appointment (
-          appointment_id,
-          status,
-          citizen:citizen_id (
-            full_name,
-            email
-          ),
-          officer:officer_id (
-            full_name,
-            email
-          )
-        )
-      `)
-      .eq('timeslot_id', timeslotId)
-      .single()
-
+    const { data, error } = await getSlotByIdQuery(timeslotId)
     if (error) {
       return res.status(404).json({ error: error.message })
     }
@@ -154,24 +68,10 @@ export async function updateSlot(req: Request, res: Response) {
     const { id: timeslotId } = req.params
     const body: SlotUpdateData = req.body
     
-    // Extract user token for authentication
-    const token = extractUserToken(req)
-    if (!token) {
-      return res.status(401).json({ error: 'Authentication required' })
-    }
+    const mReq = req as MiddlewareRequest
+    const app_user = mReq.app_user
+    const role = app_user.role
 
-    // Verify user and get role
-    const { user, error: userError } = await getUserFromToken(token)
-    if (userError || !user) {
-      return res.status(401).json({ error: 'Invalid token' })
-    }
-
-    const { role, error: roleError } = await getUserAppData(token, user.id)
-    if (roleError) {
-      return res.status(500).json({ error: 'Failed to get user role' })
-    }
-
-    // Only Admins can update slots (Officers have read-only access)
     if (role !== 'Admin') {
       return res.status(403).json({ error: 'Access denied. Only Admins can update slots.' })
     }
@@ -216,12 +116,7 @@ export async function updateSlot(req: Request, res: Response) {
       return res.status(400).json({ error: 'No valid fields to update' })
     }
 
-    const { data, error } = await adminClient
-      .from('time_slot')
-      .update(updateData)
-      .eq('timeslot_id', timeslotId)
-      .select()
-      .single()
+    const { data, error } = await updateSlotQuery(updateData, timeslotId);
 
     if (error) {
       return res.status(400).json({ error: error.message })
@@ -244,57 +139,14 @@ export async function updateSlot(req: Request, res: Response) {
 export async function getAvailableSlots(req: Request, res: Response) {
   try {
     const { service_id, from_date, to_date } = req.query
-    
-    const token = extractUserToken(req)
-    if (!token) {
-      return res.status(401).json({ error: 'Authentication required' })
-    }
+    const role = (req as MiddlewareRequest).app_user.role
 
-    const { user, error: userError } = await getUserFromToken(token)
-    if (userError || !user) {
-      return res.status(401).json({ error: 'Invalid token' })
-    }
-
-    const { role, error: roleError } = await getUserAppData(token, user.id)
-    if (roleError) {
-      return res.status(500).json({ error: 'Failed to get user role' })
-    }
-
-    const supabaseClient = adminClient
-
-    let query = supabaseClient
-      .from('time_slot')
-      .select(`
-        *,
-        service:service_id (
-          title,
-          department:department_id (
-            title
-          )
-        )
-      `)
-      .order('start_time', { ascending: true })
-
-    if (role !== 'Citizen') {
-      query = query
-        .eq('status', 'Available')
-        .gt('remaining_appointments', 0)
-        .gte('start_time', new Date().toISOString())
-    }
-
-    if (service_id) {
-      query = query.eq('service_id', service_id)
-    }
-
-    if (from_date) {
-      query = query.gte('start_time', from_date as string)
-    }
-
-    if (to_date) {
-      query = query.lte('start_time', to_date as string)
-    }
-
-    const { data, error } = await query
+    const { data, error } = await availableSlotQuery({
+      service_id: service_id as string,
+      from_date: from_date as string || undefined,
+      to_date: to_date as string || undefined,
+      role : role
+    })
 
     if (error) {
       return res.status(400).json({ error: error.message })
