@@ -20,7 +20,7 @@ class _AppState extends State<App> {
     HomeView(),
     Test1View(),
     Test1View(),
-    Test2View(),
+    BookingView(),
     ProfileView(),
   ];
 
