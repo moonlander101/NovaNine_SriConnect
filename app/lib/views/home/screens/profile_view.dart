@@ -169,7 +169,7 @@ class _ProfileViewState extends State<ProfileView> {
                       children: [
                         categoryIcon(
                             AppAssets.profile1, "Complaints &\n Support", () {
-                          context.push('/complaints-support');
+                          context.push('/fix-option');
                         }),
                         categoryIcon(
                             AppAssets.profile6, "Transaction \n History", () {

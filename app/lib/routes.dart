@@ -4,8 +4,10 @@ import 'views/app.dart';
 import 'views/profile/screens/account_settings.dart';
 import 'views/profile/screens/add_address_screen.dart';
 import 'views/profile/screens/addresses_screen.dart';
+import 'views/profile/screens/ai_assistant_screen.dart';
 import 'views/profile/screens/change_password_screen.dart';
 import 'views/profile/screens/edit_profile_screen.dart';
+import 'views/profile/screens/fix_option_screen.dart';
 import 'views/profile/screens/language_preference_screen.dart';
 import 'views/profile/screens/my_documents_screen.dart';
 import 'views/profile/screens/payment_details_screen.dart';
@@ -78,6 +80,18 @@ final router = GoRouter(
       builder: (context, state) {
         return const TransactionsHistoryScreen();
       },
-    )
+    ),
+    GoRoute(
+      path: '/fix-option',
+      builder: (context, state) {
+        return const FixOptionScreen();
+      },
+    ),
+    GoRoute(
+      path: '/ai-assistant',
+      builder: (context, state) {
+        return const AiAssistantScreen();
+      },
+    ),
   ],
 );

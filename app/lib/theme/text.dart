@@ -107,4 +107,11 @@ class AppTextStyles {
       fontWeight: FontWeight.w400,
       letterSpacing: 0.2,
       fontFamily: 'DMSans');
+
+  static TextStyle bodyX = TextStyle(
+      fontSize: 18.sp,
+      color: AppColors.fontColor,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.2,
+      fontFamily: 'DMSans');
 }

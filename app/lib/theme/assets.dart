@@ -42,4 +42,8 @@ class AppAssets {
   static const profile6 = 'assets/svgs/transaction.svg';
 
   static const idCard = 'assets/svgs/id.svg';
+  static const ai = 'assets/svgs/ai.svg';
+
+  // animation
+  static const micWave = 'assets/animations/audio.json';
 }

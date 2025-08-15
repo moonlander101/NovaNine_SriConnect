@@ -19,7 +19,7 @@ class _AppState extends State<App> {
   final _views = const <Widget>[
     HomeView(),
     Test1View(),
-    SizedBox(), // hidden view
+    Test1View(),
     Test2View(),
     ProfileView(),
   ];
