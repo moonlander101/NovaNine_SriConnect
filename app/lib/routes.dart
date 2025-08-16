@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:lanka_connect/views/services/screens/single_service_screen.dart';
 import 'models/address.dart';
 import 'views/app.dart';
 import 'views/profile/screens/account_settings.dart';
@@ -119,6 +120,12 @@ final router = GoRouter(
       path: '/public-assistance',
       builder: (context, state) {
         return const PublicAssistanceScreen();
+      },
+    ),
+    GoRoute(
+      path: '/service-booking',
+      builder: (context, state) {
+        return SingleServiceScreen();
       },
     ),
   ],
