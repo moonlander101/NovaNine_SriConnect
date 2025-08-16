@@ -22,7 +22,7 @@ class _BookingViewState extends State<BookingView> {
         preferredSize: const Size.fromHeight(kToolbarHeight + 16),
         child: _buildCustomAppBar(),
       ),
-            body: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             // Divider

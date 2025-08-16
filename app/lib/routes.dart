@@ -13,6 +13,7 @@ import 'views/profile/screens/my_documents_screen.dart';
 import 'views/profile/screens/payment_details_screen.dart';
 import 'views/profile/screens/personal_info_screen.dart';
 import 'views/profile/screens/transactions_history_screen.dart';
+import 'views/services/screens/public_assistance_screen.dart';
 
 final router = GoRouter(
   initialLocation: "/",
@@ -91,6 +92,12 @@ final router = GoRouter(
       path: '/ai-assistant',
       builder: (context, state) {
         return const AiAssistantScreen();
+      },
+    ),
+    GoRoute(
+      path: '/public-assistance',
+      builder: (context, state) {
+        return const PublicAssistanceScreen();
       },
     ),
   ],
