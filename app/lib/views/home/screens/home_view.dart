@@ -277,13 +277,13 @@ class HomeView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         categoryIcon(AppAssets.img1, "NIC \nServices", () {
-                          context.push('/');
+                          context.push('/service-booking');
                         }),
                         categoryIcon(AppAssets.img2, "Passport \nServices", () {
-                          context.push('/');
+                          context.push('/service-booking');
                         }),
                         categoryIcon(AppAssets.img3, "License \nServices", () {
-                          context.push('/');
+                          context.push('/service-booking');
                         }),
                       ],
                     ),

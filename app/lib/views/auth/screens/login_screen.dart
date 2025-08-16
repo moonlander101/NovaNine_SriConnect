@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lanka_connect/main.dart';
-import '../constants//app_constants.dart';
+import '../constants/app_constants.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_input_field.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
