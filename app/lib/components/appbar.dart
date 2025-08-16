@@ -10,15 +10,21 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
       {super.key,
       required this.title,
       this.isBackButtonVisible = true,
+      this.isActionIconVisible,
       this.backgroundColor,
       this.titleColor,
-      this.isLineVisible});
+      this.isLineVisible,
+      this.actionIcon,
+      this.onActionPressed});
 
   final String title;
   final bool? isBackButtonVisible;
   final Color? backgroundColor;
   final Color? titleColor;
   final bool? isLineVisible;
+  final IconData? actionIcon;
+  final VoidCallback? onActionPressed;
+  final bool? isActionIconVisible;
 
   @override
   Size get preferredSize =>
@@ -50,6 +56,21 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : null,
+      actions: [
+        if (isActionIconVisible == true)
+          Padding(
+            padding: const EdgeInsets.only(right: Dimens.defaultMarginB),
+            child: CustomIconButton(
+              icon: actionIcon ?? Iconsax.more,
+              iconColor: AppColors.blue,
+              backgroundColor: AppColors.white,
+              borderColor: AppColors.blue.shade200,
+              size: Dimens.iconSizeL,
+              onPressed: onActionPressed ?? () {},
+            ),
+          ),
+        const SizedBox(width: Dimens.defaultMarginB),
+      ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(Dimens.defaultMarginB),
         child: Container(

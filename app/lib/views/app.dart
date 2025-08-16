@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lanka_connect/theme/colors.dart';
-import 'package:lanka_connect/views/home/screens/test1_view.dart';
+import 'package:lanka_connect/views/home/screens/submissions_view.dart';
 
 import 'home/screens/home_view.dart';
 import 'home/screens/profile_view.dart';
@@ -18,8 +18,8 @@ class _AppState extends State<App> {
   int _selectedIndex = 0;
   final _views = const <Widget>[
     HomeView(),
-    Test1View(),
-    Test1View(),
+    SubmissionsScreen(),
+    SubmissionsScreen(),
     Test2View(),
     ProfileView(),
   ];
