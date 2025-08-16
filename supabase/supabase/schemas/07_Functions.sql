@@ -3,9 +3,9 @@
 -- Function to create appointment and update remaining appointments atomically
 CREATE OR REPLACE FUNCTION create_appointment_with_slot_update(
     p_citizen_id INTEGER,
-    p_officer_id INTEGER DEFAULT NULL,
     p_service_id INTEGER,
     p_timeslot_id INTEGER,
+    p_officer_id INTEGER DEFAULT NULL,
     p_status appointment_status DEFAULT 'Pending'
 ) 
 RETURNS JSON
@@ -232,12 +232,93 @@ BEGIN
         'success', true,
         'message', 'Appointment cancelled successfully'
     );
-    
 EXCEPTION
     WHEN OTHERS THEN
         RETURN json_build_object(
             'success', false,
             'error', 'Database error: ' || SQLERRM
+        );
+END;
+$$;
+
+-- Function to generate weekly timeslots for all services
+CREATE OR REPLACE FUNCTION generate_weekly_timeslots()
+RETURNS JSON
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+DECLARE
+    v_service_record RECORD;
+    v_current_date DATE;
+    v_week_start DATE;
+    v_day_offset INTEGER;
+    v_hour INTEGER;
+    v_start_time TIMESTAMP WITH TIME ZONE;
+    v_end_time TIMESTAMP WITH TIME ZONE;
+    v_slots_created INTEGER := 0;
+    v_total_services INTEGER := 0;
+BEGIN
+    -- Calculate the start of next week (Monday)
+    v_current_date := CURRENT_DATE;
+    v_week_start := v_current_date + INTERVAL '1 week' - INTERVAL '1 day' * EXTRACT(DOW FROM v_current_date + INTERVAL '1 week') + INTERVAL '1 day';
+    
+    -- Count total services for reporting
+    SELECT COUNT(*) INTO v_total_services FROM service WHERE service_id IS NOT NULL;
+    
+    -- Loop through each service
+    FOR v_service_record IN 
+        SELECT service_id FROM service WHERE service_id IS NOT NULL
+    LOOP
+        -- Generate slots for 7 days (Monday to Sunday)
+        FOR v_day_offset IN 0..6 LOOP
+            -- Generate slots from 8AM to 5PM (9 slots total)
+            FOR v_hour IN 8..16 LOOP
+                -- Calculate start and end times
+                v_start_time := (v_week_start + INTERVAL '1 day' * v_day_offset + INTERVAL '1 hour' * v_hour) AT TIME ZONE 'UTC';
+                v_end_time := v_start_time + INTERVAL '1 hour';
+                
+                -- Check if this timeslot already exists for this service
+                IF NOT EXISTS (
+                    SELECT 1 FROM time_slot 
+                    WHERE service_id = v_service_record.service_id 
+                    AND start_time = v_start_time 
+                    AND end_time = v_end_time
+                ) THEN
+                    -- Insert the timeslot with 'Pending' status (admin needs to activate)
+                    INSERT INTO time_slot (
+                        service_id, 
+                        start_time, 
+                        end_time, 
+                        remaining_appointments, 
+                        status
+                    ) VALUES (
+                        v_service_record.service_id,
+                        v_start_time,
+                        v_end_time,
+                        1, -- Default 1 appointment per slot
+                        'Pending' -- Admin needs to set to 'Available'
+                    );
+                    
+                    v_slots_created := v_slots_created + 1;
+                END IF;
+            END LOOP;
+        END LOOP;
+    END LOOP;
+    
+    -- Return success response with statistics
+    RETURN json_build_object(
+        'success', true,
+        'message', 'Weekly timeslots generated successfully',
+        'slots_created', v_slots_created,
+        'services_processed', v_total_services,
+        'week_start_date', v_week_start::text
+    );
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN json_build_object(
+            'success', false,
+            'error', 'Failed to generate timeslots: ' || SQLERRM
         );
 END;
 $$;

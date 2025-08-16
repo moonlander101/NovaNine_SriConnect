@@ -18,3 +18,5 @@ supabase/.env
 # OS
 .DS_Store
 Thumbs.db
+
+AI_PROMPTS
