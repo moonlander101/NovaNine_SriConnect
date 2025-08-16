@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lanka_connect/main.dart';
 import '../constants//app_constants.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_input_field.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,17 +17,58 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
+  late StreamSubscription<AuthState> _authSubscription;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _authSubscription = supabase.auth.onAuthStateChange.listen((data) {
+      final AuthChangeEvent event = data.event;
+      final Session? session = data.session;
+      print('event: $event, session: $session');
+      if (event == AuthChangeEvent.signedIn || event == AuthChangeEvent.tokenRefreshed) {
+        // Navigate to home screen or wherever you want after login
+        if (mounted) context.go('/home');
+      }
+    });
+  }
 
   @override
   void dispose() {
     _phoneController.dispose();
     _passwordController.dispose();
+    _authSubscription.cancel();
     super.dispose();
   }
 
-  void _handleLogin() {
-    // Simulate login process
-    context.push('/home');
+  Future<void> _handleLogin() async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      await supabase.auth.signInWithPassword(
+        phone: _phoneController.text,
+        password: _passwordController.text,
+      );
+      if (mounted) {
+        context.showSnackBar('Sign In successful!');
+        _phoneController.clear();
+        _passwordController.clear();
+      }
+    } on AuthException catch (error) {
+      if (mounted) context.showSnackBar(error.message, isError: true);
+    } catch (error) {
+      if (mounted) {
+        context.showSnackBar('Unexpected error occurred', isError: true);
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   void _handleForgotPassword() {
@@ -93,6 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomButton(
                       text: 'Login',
                       onPressed: _handleLogin,
+                      isLoading: _isLoading,
                     ),
                     
                     const Spacer(),
