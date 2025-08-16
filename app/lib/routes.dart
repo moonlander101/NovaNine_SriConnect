@@ -18,6 +18,8 @@ import 'views/landing_screen.dart';
 import 'views/auth/screens/login_screen.dart';
 import 'views/auth/screens/register_screen.dart';
 import 'views/auth/screens/forgot_password_screen.dart';
+import 'views/auth/screens/otp_verification_screen.dart';
+import 'views/auth/screens/success_screen.dart';
 
 
 final router = GoRouter(
@@ -30,6 +32,14 @@ final router = GoRouter(
     GoRoute(
       path: '/login',
       builder: (context, state) => LoginScreen(),
+    ),
+    GoRoute(
+      path: '/otp-verification',
+      builder: (context, state) => OtpVerificationScreen(),
+    ),
+    GoRoute(
+      path: '/success',
+      builder: (context, state) => SuccessScreen(),
     ),
     GoRoute(
       path: '/register',

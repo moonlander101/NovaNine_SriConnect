@@ -134,7 +134,7 @@ class HomeView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(Dimens.defaultRadiusL),
                     color: AppColors.blue),
                 child: Container(
-                  height: 180,
+                  height: 185,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: AppColors.blue,

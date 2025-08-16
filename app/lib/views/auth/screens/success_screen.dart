@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lanka_connect/views/home/screens/home_view.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
@@ -61,7 +62,7 @@ class SuccessScreen extends StatelessWidget {
           
           // Dark overlay
           Container(
-            color: Colors.black.withValues(alpha: 0.24),
+            color: Colors.black.withOpacity(0.24),
           ),
           
           // Success dialog
@@ -120,7 +121,7 @@ class SuccessScreen extends StatelessWidget {
                       const SizedBox(
                         width: 265,
                         child: Text(
-                          'Time to connect with the right people.',
+                          'Time to explore right services.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'DM Sans',
@@ -138,7 +139,12 @@ class SuccessScreen extends StatelessWidget {
                         width: 312,
                         height: 64,
                         child: ElevatedButton(
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const HomeView()),
+                            );
+                  },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF2BA1F3),
                             shape: RoundedRectangleBorder(
@@ -147,7 +153,7 @@ class SuccessScreen extends StatelessWidget {
                             elevation: 0,
                           ),
                           child: const Text(
-                            'Back to Login',
+                            'Continue',
                             style: TextStyle(
                               fontFamily: 'Noto Sans',
                               fontSize: 16,
