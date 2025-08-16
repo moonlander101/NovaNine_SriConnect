@@ -15,14 +15,29 @@ import 'views/profile/screens/personal_info_screen.dart';
 import 'views/profile/screens/transactions_history_screen.dart';
 import 'views/services/screens/public_assistance_screen.dart';
 import 'views/landing_screen.dart';
+import 'views/auth/screens/login_screen.dart';
+import 'views/auth/screens/register_screen.dart';
+import 'views/auth/screens/forgot_password_screen.dart';
 
 
 final router = GoRouter(
   initialLocation: "/",
   routes: [
-        GoRoute(
+    GoRoute(
       path: '/',
       builder: (context, state) => LandingScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => LoginScreen(),
+    ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) => RegisterScreen(),
+    ),
+    GoRoute(
+      path: '/forgot-password',
+      builder: (context, state) => ForgotPasswordScreen(),
     ),
     GoRoute(
       path: '/home',

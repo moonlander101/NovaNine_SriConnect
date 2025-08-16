@@ -11,7 +11,7 @@ class TimeLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 34,
       child: Text(
         time,

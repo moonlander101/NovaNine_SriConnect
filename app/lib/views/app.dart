@@ -49,7 +49,7 @@ class _AppState extends State<App> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Iconsax.dollar_circle),
-                label: 'x',
+                label: 'Payments',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Iconsax.calendar_1),
@@ -70,12 +70,12 @@ class _AppState extends State<App> {
           Padding(
             padding: const EdgeInsets.only(bottom: 30.0),
             child: InkWell(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomeView(),
-                ),
-              ),
+              onTap: () {
+                // Navigate to services or show services modal
+                setState(() {
+                  _selectedIndex = 0; // Navigate to home
+                });
+              },
               child: Container(
                 decoration: BoxDecoration(
                   color: AppColors.blue,

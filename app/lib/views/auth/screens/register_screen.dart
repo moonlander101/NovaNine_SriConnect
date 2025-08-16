@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../constants//app_constants.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_input_field.dart';
@@ -29,8 +30,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _onContinue() {
     if (_formKey.currentState?.validate() ?? false) {
-      // Navigate to basic details step 2
-      Navigator.pushNamed(context, '/register-basic-details');
+      // For now, show success message and navigate to login
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Registration successful! Please login.'),
+          backgroundColor: AppColors.primaryBlue,
+        ),
+      );
+      context.go('/login');
     }
   }
 

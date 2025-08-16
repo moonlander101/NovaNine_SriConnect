@@ -61,7 +61,7 @@ class SuccessScreen extends StatelessWidget {
           
           // Dark overlay
           Container(
-            color: Colors.black.withOpacity(0.24),
+            color: Colors.black.withValues(alpha: 0.24),
           ),
           
           // Success dialog

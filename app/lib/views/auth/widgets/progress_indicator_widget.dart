@@ -19,7 +19,6 @@ class ProgressIndicatorWidget extends StatelessWidget {
       children: List.generate(totalSteps, (index) {
         final stepNumber = index + 1;
         final isCompleted = stepNumber <= currentStep;
-        final isInactive = stepNumber > currentStep;
 
         return Expanded(
           child: Container(

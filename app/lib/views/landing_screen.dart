@@ -119,8 +119,16 @@ class LandingScreen extends StatelessWidget {
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
-                            // Handle language change logic here
-                            print('Selected language: $newValue');
+                            // TODO: Implement language change logic
+                            if (newValue != null) {
+                              // Handle language change here
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Language changed to $newValue'),
+                                  duration: const Duration(seconds: 1),
+                                ),
+                              );
+                            }
                           },
                           ),
                         ),

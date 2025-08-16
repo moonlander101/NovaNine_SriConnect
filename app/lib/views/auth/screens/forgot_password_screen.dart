@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../constants//app_constants.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_input_field.dart';
-import 'otp_verification_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -21,15 +21,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   void _handleSendOTP() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const OtpVerificationScreen(
-          phoneNumber: '(+94) 70 1234567',
-          isForPasswordReset: true,
-        ),
+    // Show success message and navigate to login
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Password reset link sent to your phone!'),
+        backgroundColor: AppColors.primaryBlue,
       ),
     );
+    context.go('/login');
   }
 
   void _handleBackToLogin() {

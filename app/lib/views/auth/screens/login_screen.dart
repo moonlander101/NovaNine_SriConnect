@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../constants//app_constants.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_input_field.dart';
-import 'forgot_password_screen.dart';
-import 'otp_verification_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,31 +24,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _handleLogin() {
     // Simulate login process
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const OtpVerificationScreen(
-          phoneNumber: '(+94) 70 1234567',
-          isForPasswordReset: false,
-        ),
-      ),
-    );
+    context.push('/home');
   }
 
   void _handleForgotPassword() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ForgotPasswordScreen(),
-      ),
-    );
+    context.push('/forgot-password');
   }
 
   void _handleRegister() {
     // Navigate to register screen
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Register functionality not implemented')),
-    );
+    context.push('/register');
   }
 
   @override

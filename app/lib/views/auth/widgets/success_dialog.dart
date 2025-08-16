@@ -101,7 +101,7 @@ class SuccessDialog extends StatelessWidget {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
-      barrierColor: Colors.black.withOpacity(0.24),
+      barrierColor: Colors.black.withValues(alpha: 0.24),
       builder: (BuildContext context) {
         return SuccessDialog(
           title: title,
