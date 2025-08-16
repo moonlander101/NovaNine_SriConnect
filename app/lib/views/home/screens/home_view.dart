@@ -46,7 +46,7 @@ class HomeView extends StatelessWidget {
                   ),
                   const SizedBox(width: Dimens.defaultMargin),
                   Text(
-                    "Hello Vimosh!",
+                    "Hello Sunara!",
                     style: AppTextStyles.title1.copyWith(
                       color: AppColors.darkGreen,
                       fontWeight: FontWeight.w600,

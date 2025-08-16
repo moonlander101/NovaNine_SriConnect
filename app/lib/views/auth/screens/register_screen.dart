@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lanka_connect/main.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../constants//app_constants.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_input_field.dart';
@@ -18,6 +22,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _mobileController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  late StreamSubscription<AuthState> _authSubscription;
+  bool _isLoading = false;
+  bool _redirecting = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _authSubscription = supabase.auth.onAuthStateChange.listen(
+      (data) {
+        final session = data.session;
+        if (_redirecting) return;
+        if (session != null) {
+          _redirecting = true;
+          if (mounted) context.go('/home');
+        }
+      },
+      onError: (error) {
+        if (error is AuthException) {
+          if (mounted) context.showSnackBar(error.message, isError: true);
+        } else {
+          if (mounted) context.showSnackBar('Unexpected error occurred', isError: true);
+        }
+      },
+    );
+  }
+
 
   @override
   void dispose() {
@@ -25,19 +55,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _mobileController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _authSubscription.cancel();
     super.dispose();
   }
 
-  void _onContinue() {
+  Future<void> _onContinue() async {
     if (_formKey.currentState?.validate() ?? false) {
-      // For now, show success message and navigate to login
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Registration successful! Please login.'),
-          backgroundColor: AppColors.primaryBlue,
-        ),
-      );
-      context.go('/login');
+      try {
+        setState(() {
+          _isLoading = true;
+        });
+        await supabase.auth.signUp(
+          phone: _mobileController.text,
+          password: _passwordController.text,
+          data: {
+            'full_name': _fullNameController.text,
+          },
+        );
+        if (mounted) {
+          context.showSnackBar('Sign In successful!');
+          _fullNameController.clear();
+          _mobileController.clear();
+          _confirmPasswordController.clear();
+          _passwordController.clear();
+        }
+      } on AuthException catch (error) {
+        if (mounted) context.showSnackBar(error.message, isError: true);
+      } catch (error) {
+        if (mounted) {
+          context.showSnackBar('Unexpected error occurred', isError: true);
+        }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
     }
   }
 
@@ -107,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
             // Progress indicator
             const Padding(
-              padding: EdgeInsets.only(top: 27),
+              padding: EdgeInsets.only(top: 27, left: 32, right: 32),
               child: ProgressIndicatorWidget(
                 currentStep: 1,
                 totalSteps: 3,
@@ -168,6 +222,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       CustomButton(
                         text: 'Continue',
                         onPressed: _onContinue,
+                        isLoading: _isLoading,
                       ),
                     ],
                   ),
