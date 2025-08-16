@@ -19,6 +19,9 @@ interface DocWithType {
 // Helper function to get appointment data from query response
 async function getAppointmentData(appointmentId: string) {
   const { data, error } = await getAppointmentByIdQuery(appointmentId)
+  if (!data) {
+    return []
+  }
   if (error) throw error
   return data
 }

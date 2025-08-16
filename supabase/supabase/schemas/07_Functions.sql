@@ -228,6 +228,10 @@ BEGIN
     SET remaining_appointments = remaining_appointments + 1
     WHERE timeslot_id = v_timeslot_id;
     
+    RETURN json_build_object(
+        'success', true,
+        'message', 'Appointment cancelled successfully'
+    );
 EXCEPTION
     WHEN OTHERS THEN
         RETURN json_build_object(

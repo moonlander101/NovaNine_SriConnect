@@ -103,12 +103,12 @@ export const getAppointmentByIdQuery = (appointmentId: string) => {
       citizen:citizen_id (
         full_name,
         email,
-        contact_number
+        phone_no
       ),
       officer:officer_id (
         full_name,
         email,
-        contact_number
+        phone_no
       )
     `)
     .eq('appointment_id', appointmentId)

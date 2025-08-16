@@ -118,7 +118,7 @@ export function filterAppointmentsByDate(
 ): (Appointment & { 
   timeslot?: { start_time: string } 
 })[] {
-  if (!dateRange) return appointments
+  if (!dateRange || dateRange.length == 0) return appointments
   
   const [startOfDay, endOfDay] = dateRange
   

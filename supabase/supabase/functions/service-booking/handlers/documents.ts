@@ -183,10 +183,11 @@ export async function downloadDocument(req: Request, res: Response) {
     }
     
     // Generate signed URL
-    const signedUrl = await generateSignedUrl(document.file_path, 300) // 5 minutes
+    const signedUrl = await generateSignedUrl(document.file_path, 60) // 1 minute
     
-    // Redirect to signed URL
-    return res.redirect(signedUrl)
+    return res.json({
+      url : signedUrl
+    }).status(200)
     
   } catch (error) {
     console.error('Download document error:', error)

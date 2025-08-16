@@ -92,8 +92,8 @@ export async function getAppointments(req: Request, res: Response) {
     }
 
     const dateRange = validateDateFilter(date as string)
+    
     const filteredData = filterAppointmentsByDate(data || [], dateRange || [])
-
     return res.status(200).json({ 
       data: filteredData,
       count: filteredData?.length || 0

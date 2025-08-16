@@ -13,6 +13,7 @@ import {
   getDocumentTypesList,
   downloadDocument
 } from '../handlers/documents.ts'
+import { multipartParser } from "../../_shared/middleware/upload.ts";
 
 
 export const router = express.Router();
@@ -22,8 +23,7 @@ router.get('/service-booking/appointments/:id', getAppointmentById)
 router.get('/service-booking/appointments', getAppointments)
 router.put('/service-booking/appointments/:id', updateAppointmentStatus)
 
-// Document routes
-router.post('/service-booking/appointments/:id/documents', uploadAppointmentDocument)
+router.post('/service-booking/appointments/:id/documents', multipartParser(), uploadAppointmentDocument)
 router.get('/service-booking/appointments/:id/documents', getAppointmentDocumentsList)
 router.delete('/service-booking/appointments/:id/documents/:docId', deleteAppointmentDocument)
 router.get('/service-booking/appointments/:id/documents/:docId/download', downloadDocument)
