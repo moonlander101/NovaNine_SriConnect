@@ -160,3 +160,33 @@ export const getCurrentAppointmentQuery = (appointmentId: string) => {
     .eq('appointment_id', appointmentId)
     .single()
 }
+
+export const checkOfficerExistsQuery = (officerId: number) => {
+  return adminClient
+    .from('app_user')
+    .select('user_id, role')
+    .eq('user_id', officerId)
+    .eq('role', 'Officer')
+    .single()
+}
+
+export const updateAppointmentOfficerQuery = (appointmentId: string, officerId: number) => {
+  return adminClient
+    .from('appointment')
+    .update({ 
+      officer_id: officerId,
+      updated_at: new Date().toISOString()
+    })
+    .eq('appointment_id', appointmentId)
+    .select(`
+      *,
+      service:service_id (
+        title
+      ),
+      officer:officer_id (
+        full_name,
+        email
+      )
+    `)
+    .single()
+}

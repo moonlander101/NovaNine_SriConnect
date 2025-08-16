@@ -7,13 +7,14 @@ import {
   getAppointmentsQuery,
   getAppointmentByIdQuery,
   updateAppointmentStatusQuery,
+  updateAppointmentOfficerQuery,
   cancelAppointmentQuery,
   getCurrentAppointmentQuery,
+  checkOfficerExistsQuery,
   CreateAppointmentParams
 } from "../queries/appointment.queries.ts"
 import {
   checkAppointmentAccess,
-  validateStatusUpdate,
   canUserCreateAppointment,
   buildAppointmentData,
   canUserUpdateAppointment
@@ -119,6 +120,47 @@ export async function getAppointmentById(req: Request, res: Response) {
     }
 
     return res.status(200).json({ data })
+  } catch (_error) {
+    return res.status(500).json({ error: 'Internal server error' })
+  }
+}
+
+export async function updateAppointmentOfficer(req: Request, res: Response) {
+  try {
+    const { id: appointmentId } = req.params
+    let officerId  = req.body
+    officerId = parseInt(officerId)
+    const mReq = req as MiddlewareRequest
+    const { role } = mReq.app_user
+
+    if (role !== 'Admin') {
+      return res.status(403).json({ error: 'Access denied.' })
+    }
+
+    if (!officerId || typeof officerId !== 'number') {
+      return res.status(400).json({ error: 'Valid officer ID is required' })
+    }
+
+    const { data: officerData, error: officerError } = await checkOfficerExistsQuery(officerId)
+    if (officerError || !officerData) {
+      return res.status(400).json({ error: 'Invalid officer ID: The specified user does not exist or is not an officer' })
+    }
+
+    const { data: currentAppointment, error: fetchError } = await getCurrentAppointmentQuery(appointmentId)
+    if (fetchError || !currentAppointment) {
+      return res.status(404).json({ error: 'Appointment not found' })
+    }
+
+    const { data: updatedAppointment, error: updateError } = await updateAppointmentOfficerQuery(appointmentId, officerId)
+    
+    if (updateError) {
+      return res.status(400).json({ error: `Failed to update appointment officer: ${updateError.message}` })
+    }
+
+    return res.status(200).json({
+      message: 'Appointment officer updated successfully',
+      data: updatedAppointment
+    })
   } catch (_error) {
     return res.status(500).json({ error: 'Internal server error' })
   }

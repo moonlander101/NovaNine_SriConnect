@@ -3,7 +3,8 @@ import {
   createAppointment,
   getAppointmentById,
   getAppointments,
-  updateAppointmentStatus
+  updateAppointmentStatus,
+  updateAppointmentOfficer
 } from '../handlers/appointments.ts'
 
 import {
@@ -22,6 +23,7 @@ router.post('/service-booking/appointments', createAppointment)
 router.get('/service-booking/appointments/:id', getAppointmentById)
 router.get('/service-booking/appointments', getAppointments)
 router.put('/service-booking/appointments/:id', updateAppointmentStatus)
+router.patch('/service-booking/appointments/:id/officer', updateAppointmentOfficer)
 
 router.post('/service-booking/appointments/:id/documents', multipartParser(), uploadAppointmentDocument)
 router.get('/service-booking/appointments/:id/documents', getAppointmentDocumentsList)
