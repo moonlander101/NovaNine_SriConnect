@@ -19,7 +19,7 @@ class _AppState extends State<App> {
   final _views = const <Widget>[
     HomeView(),
     SubmissionsScreen(),
-    SubmissionsScreen(),
+    // SubmissionsScreen(),
     BookingView(),
     ProfileView(),
   ];
@@ -47,10 +47,10 @@ class _AppState extends State<App> {
                 icon: Icon(Iconsax.task_square),
                 label: 'Submissions',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Iconsax.dollar_circle),
-                label: 'Payments',
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Iconsax.dollar_circle),
+              //   label: 'Payments',
+              // ),
               BottomNavigationBarItem(
                 icon: Icon(Iconsax.calendar_1),
                 label: 'Bookings',
@@ -67,38 +67,38 @@ class _AppState extends State<App> {
               });
             },
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 30.0),
-            child: InkWell(
-              onTap: () {
-                // Navigate to services or show services modal
-                setState(() {
-                  _selectedIndex = 0; // Navigate to home
-                });
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.blue,
-                  borderRadius: const BorderRadius.all(Radius.circular(240)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.blue.shade200,
-                      blurRadius: 5,
-                      spreadRadius: 1,
-                    ),
-                  ],
-                ),
-                margin: const EdgeInsets.only(top: 2),
-                height: 55,
-                width: 55,
-                child: const Icon(
-                  Iconsax.category_25,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 30.0),
+          //   child: InkWell(
+          //     onTap: () {
+          //       // Navigate to services or show services modal
+          //       setState(() {
+          //         _selectedIndex = 0; // Navigate to home
+          //       });
+          //     },
+          //     child: Container(
+          //       decoration: BoxDecoration(
+          //         color: AppColors.blue,
+          //         borderRadius: const BorderRadius.all(Radius.circular(240)),
+          //         boxShadow: [
+          //           BoxShadow(
+          //             color: AppColors.blue.shade200,
+          //             blurRadius: 5,
+          //             spreadRadius: 1,
+          //           ),
+          //         ],
+          //       ),
+          //       margin: const EdgeInsets.only(top: 2),
+          //       height: 55,
+          //       width: 55,
+          //       child: const Icon(
+          //         Iconsax.category_25,
+          //         color: Colors.white,
+          //         size: 30,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

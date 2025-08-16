@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'address.g.dart';
-
-@JsonSerializable()
 class Address {
   String id; 
   final String name;
@@ -63,8 +58,6 @@ class Address {
 }
 
 enum AddressType {
-  @JsonValue('House')
   home,
-  @JsonValue('Apartment')
   work,
 }
