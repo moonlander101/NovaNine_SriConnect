@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'success_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});
@@ -140,10 +140,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 height: 64,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SuccessScreen()),
-                    );
+                    context.pushReplacement('/success');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2BA1F3),

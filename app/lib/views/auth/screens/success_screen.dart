@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lanka_connect/views/home/screens/home_view.dart';
+import 'package:go_router/go_router.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
@@ -140,11 +140,8 @@ class SuccessScreen extends StatelessWidget {
                         height: 64,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const HomeView()),
-                            );
-                  },
+                            context.pushReplacement('/home');
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF2BA1F3),
                             shape: RoundedRectangleBorder(
