@@ -2,7 +2,7 @@
 
 A comprehensive service booking and appointment management system for Sri Lankan government services. Built with Flutter and Supabase, Sri Connect streamlines the process of booking appointments for various government services like NIC updates, birth certificates, and other administrative services.
 
-## 🚀 Features
+## Features
 
 - **Service Booking**: Book appointments for various government services
 - **User Management**: Support for Citizens, Officers, and Admins
@@ -11,7 +11,7 @@ A comprehensive service booking and appointment management system for Sri Lankan
 - **Real-time Updates**: Live appointment status updates
 - **Multi-language Support**: Localization support for Sinhala and English
 
-## 🏗️ Architecture
+## Architecture
 
 - **Frontend**: Flutter (Mobile App)
 - **Backend**: Supabase (PostgreSQL + Edge Functions)
@@ -19,7 +19,7 @@ A comprehensive service booking and appointment management system for Sri Lankan
 - **Storage**: Supabase Storage for documents
 - **Real-time**: Supabase Realtime subscriptions
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before running the application, ensure you have the following installed:
 
@@ -34,7 +34,7 @@ The easiest way to run the entire application is using Docker Compose:
 
 ```bash
 # Clone the repository
-git clone 
+git clone https://github.com/moonlander101/NovaNine_SriConnect.git
 cd NovaNine_SriConnect
 
 # Start all services
@@ -46,7 +46,7 @@ docker-compose up -d
 # - Edge Functions: http://localhost:54321/functions/v1
 ```
 
-## 🛠️ Manual Setup
+## Manual Setup
 
 ### 1. Setup Supabase Backend
 
@@ -88,7 +88,7 @@ flutter pub get
 flutter run
 ```
 
-## 📱 Running on Different Platforms
+## Running on Different Platforms
 
 ### Android
 ```bash
@@ -110,7 +110,7 @@ flutter run -d web-server --web-port 3000
 flutter run -d windows
 ```
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Run all tests
@@ -123,7 +123,7 @@ flutter test --coverage
 flutter test integration_test/
 ```
 
-## 📦 Building for Production
+## Building for Production
 
 ### Android APK
 ```bash
@@ -145,7 +145,7 @@ flutter build ios --release
 flutter build web --release
 ```
 
-## 🗄️ Database Schema
+## Database Schema
 
 The application uses the following main entities:
 
@@ -171,7 +171,7 @@ SUPABASE_URL=http://127.0.0.1:54321
 SUPABASE_ANON_KEY=your_anon_key_here
 ```
 
-## 📋 Available Services
+## Available Services
 
 The system currently supports booking for:
 
@@ -182,13 +182,13 @@ The system currently supports booking for:
 - Business registration services
 - And more...
 
-## 👥 User Roles
+## User Roles
 
 - **Citizens**: Book appointments, upload documents, track status
 - **Officers**: Manage assigned appointments, update status, view documents
 - **Admins**: Full system access, user management, service configuration
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -210,50 +210,3 @@ The system currently supports booking for:
    docker-compose up --build
    ```
 
-### Logs
-
-- **Flutter logs**: `flutter logs`
-- **Supabase logs**: `supabase logs`
-- **Docker logs**: `docker-compose logs`
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-For support and questions:
-- Create an issue in the repository
-- Contact the development team
-- Check the documentation in the `/docs` folder
-
-## 🔄 Updates
-
-To update the application:
-
-1. **Update Flutter dependencies**:
-   ```bash
-   cd app
-   flutter pub upgrade
-   ```
-
-2. **Update Supabase**:
-   ```bash
-   cd supabase
-   supabase db pull
-   supabase functions deploy
-   ```
-
-3. **Update Docker services**:
-   ```bash
-   docker-compose pull
-   docker-compose up -d
-   ```
