@@ -28,25 +28,7 @@ Before running the application, ensure you have the following installed:
 - [Node.js](https://nodejs.org/) (18 or higher)
 - [Supabase CLI](https://supabase.com/docs/guides/cli)
 
-## 🚀 Quick Start with Docker
-
-The easiest way to run the entire application is using Docker Compose:
-
-```bash
-# Clone the repository
-git clone https://github.com/moonlander101/NovaNine_SriConnect.git
-cd NovaNine_SriConnect
-
-# Start all services
-docker-compose up -d
-
-# The application will be available at:
-# - Supabase Studio: http://localhost:54323
-# - Supabase API: http://localhost:54321
-# - Edge Functions: http://localhost:54321/functions/v1
-```
-
-## Manual Setup
+## Startup of Each Service
 
 ### 1. Setup Supabase Backend
 
@@ -58,13 +40,13 @@ cd supabase
 npm install
 
 # Start Supabase locally
-supabase start
+npx supabase start
 
 # Apply database migrations
-supabase db reset
+npx supabase db reset
 
 # Deploy edge functions
-supabase functions deploy service-booking
+npx supabase functions deploy --all
 ```
 
 ### 2. Setup Flutter App
