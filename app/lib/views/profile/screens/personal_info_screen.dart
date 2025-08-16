@@ -44,7 +44,7 @@ class PersonalInfoScreen extends StatelessWidget {
                       InfoRow(
                         icon: Iconsax.profile_circle,
                         label: "Full Name",
-                        value: "Vimosh Vasanthakumar",
+                        value: "Sunara Nanayakkara",
                       ),
                       InfoRow(
                         icon: Iconsax.calendar_1,
@@ -116,7 +116,7 @@ class PersonalInfoScreen extends StatelessWidget {
                       InfoRow(
                         icon: Iconsax.sms,
                         label: "Email",
-                        value: "vimosh02@gmail.com",
+                        value: "sunara.nana@gmail.com",
                       ),
                     ],
                   ),

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lanka_connect/components/margin.dart';
 import 'package:lanka_connect/l10n/localizations_helper.dart';
+import 'package:lanka_connect/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../components/appbar.dart';
 import '../../../components/sucess_dialog.dart';
@@ -22,9 +23,9 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  String userEmail = "Vimosh@example.com";
-  String userName = "Vimosh Vasanthakumar";
-  String userProfileURL = "https://example.com/vimosh.jpg";
+  String userEmail = "sunara.nana@example.com";
+  String userName = "Sunara Nanayakkara";
+  String userProfileURL = "https://example.com/sunara.jpg";
   String userNIC = "200222500189";
 
   Widget sectionTitle(String title) {
@@ -249,6 +250,7 @@ class _ProfileViewState extends State<ProfileView> {
                             buttonText: 'Yes',
                             backgroundColor: Colors.white,
                             onPressed: () => {
+                              supabase.auth.signOut(),
                               context.go('/login'),
                             },
                             hasCancelButton: true,

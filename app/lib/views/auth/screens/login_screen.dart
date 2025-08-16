@@ -19,19 +19,28 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   late StreamSubscription<AuthState> _authSubscription;
   bool _isLoading = false;
+  bool _redirecting = false;
 
   @override
   void initState() {
     super.initState();
-    _authSubscription = supabase.auth.onAuthStateChange.listen((data) {
-      final AuthChangeEvent event = data.event;
-      final Session? session = data.session;
-      print('event: $event, session: $session');
-      if (event == AuthChangeEvent.signedIn || event == AuthChangeEvent.tokenRefreshed) {
-        // Navigate to home screen or wherever you want after login
-        if (mounted) context.go('/home');
-      }
-    });
+    _authSubscription = supabase.auth.onAuthStateChange.listen(
+      (data) {
+        final session = data.session;
+        if (_redirecting) return;
+        if (session != null) {
+          _redirecting = true;
+          if (mounted) context.go('/home');
+        }
+      },
+      onError: (error) {
+        if (error is AuthException) {
+          if (mounted) context.showSnackBar(error.message, isError: true);
+        } else {
+          if (mounted) context.showSnackBar('Unexpected error occurred', isError: true);
+        }
+      },
+    );
   }
 
   @override
