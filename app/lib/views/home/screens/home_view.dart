@@ -296,7 +296,7 @@ class HomeView extends StatelessWidget {
                           context.push('/');
                         }),
                         categoryIcon(AppAssets.img2, "Public \nAssistance", () {
-                          context.push('/');
+                          context.push('/public-assistance');
                         }),
                         categoryIcon(AppAssets.img3, "Public \nTransport Info",
                             () {

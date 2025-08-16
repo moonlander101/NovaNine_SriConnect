@@ -5,7 +5,7 @@ import 'package:lanka_connect/views/home/screens/submissions_view.dart';
 
 import 'home/screens/home_view.dart';
 import 'home/screens/profile_view.dart';
-import 'home/screens/test2_view.dart';
+import 'home/screens/booking_view.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -20,7 +20,7 @@ class _AppState extends State<App> {
     HomeView(),
     SubmissionsScreen(),
     SubmissionsScreen(),
-    Test2View(),
+    BookingView(),
     ProfileView(),
   ];
 
