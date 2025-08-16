@@ -1,4 +1,5 @@
 **/node_modules
+sqlAgent/venv/
 
 # Environment variables
 .env
@@ -18,3 +19,14 @@ supabase/.env
 # OS
 .DS_Store
 Thumbs.db
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+sqlAgent/venv/
