@@ -14,12 +14,18 @@ import 'views/profile/screens/payment_details_screen.dart';
 import 'views/profile/screens/personal_info_screen.dart';
 import 'views/profile/screens/transactions_history_screen.dart';
 import 'views/services/screens/public_assistance_screen.dart';
+import 'views/landing_screen.dart';
+
 
 final router = GoRouter(
   initialLocation: "/",
   routes: [
-    GoRoute(
+        GoRoute(
       path: '/',
+      builder: (context, state) => LandingScreen(),
+    ),
+    GoRoute(
+      path: '/home',
       builder: (context, state) => App(),
     ),
     GoRoute(
