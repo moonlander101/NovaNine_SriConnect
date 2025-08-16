@@ -14,10 +14,14 @@ import 'views/profile/screens/payment_details_screen.dart';
 import 'views/profile/screens/personal_info_screen.dart';
 import 'views/profile/screens/transactions_history_screen.dart';
 import 'views/services/screens/public_assistance_screen.dart';
-import 'views/landing_screen.dart';
+
 import 'views/auth/screens/login_screen.dart';
 import 'views/auth/screens/register_screen.dart';
 import 'views/auth/screens/forgot_password_screen.dart';
+import 'views/auth/screens/otp_verification_screen.dart';
+import 'views/auth/screens/reset_password_otp_screen.dart';
+import 'views/auth/screens/reset_password_screen.dart';
+import 'views/auth/screens/landing_page.dart';
 
 
 final router = GoRouter(
@@ -25,7 +29,7 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => LandingScreen(),
+      builder: (context, state) => LandingPage(),
     ),
     GoRoute(
       path: '/login',
@@ -38,6 +42,22 @@ final router = GoRouter(
     GoRoute(
       path: '/forgot-password',
       builder: (context, state) => ForgotPasswordScreen(),
+    ),
+    GoRoute(
+      path: '/otp-verification',
+      builder: (context, state) => OTPVerificationScreen(),
+    ),
+    GoRoute(
+      path: '/reset-password-otp',
+      builder: (context, state) => ResetPasswordOtpScreen(),
+    ),
+    GoRoute(
+      path: '/reset-password',
+      builder: (context, state) => ResetPasswordScreen(),
+    ),
+    GoRoute(
+      path: '/landing',
+      builder: (context, state) => LandingPage(),
     ),
     GoRoute(
       path: '/home',
