@@ -16,7 +16,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
     {
       "type": CardType.debit,
       "number": "1234567812345678",
-      "holder": "Vimosh Vasanthakumar",
+      "holder": "Sunara Nanayakkara",
       "expiry": "08/27",
       "validFrom": "08/22",
       "cvv": "123",
@@ -27,7 +27,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
     {
       "type": CardType.credit,
       "number": "8765432187654321",
-      "holder": "Vimosh Vasanthakumar",
+      "holder": "Sunara Nanayakkara",
       "expiry": "11/26",
       "validFrom": "11/21",
       "cvv": "456",

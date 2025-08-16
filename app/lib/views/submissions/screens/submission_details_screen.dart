@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lanka_connect/components/appbar.dart';
 import 'package:lanka_connect/components/gap.dart';
-import 'package:lanka_connect/components/margin.dart';
 import 'dart:math';
 import '../../../theme/colors.dart';
 import '../../../theme/dimens.dart';

@@ -58,7 +58,7 @@ class _BookingViewState extends State<BookingView> {
                 children: [
                   BookingCard(
                     title: 'Update NIC',
-                    name: 'Vimosh Vasanthakumar',
+                    name: 'Sunara Nanayakkara',
                     dateTime: 'Jul 21, 2025 | 08.00 AM - 10.00 AM',
                     location: 'District Secretariat - Moratuwa',
                     fee: 'Rs. 2000',
@@ -67,7 +67,7 @@ class _BookingViewState extends State<BookingView> {
                   const SizedBox(height: 10),
                   BookingCard(
                     title: 'Obtain Birth Certificate',
-                    name: 'Vimosh Vasanthakumar', 
+                    name: 'Sunara Nanayakkara', 
                     dateTime: 'Dec 20, 2025 | 08.00 AM - 10.00 AM',
                     location: 'District Secretariat - Moratuwa',
                     fee: 'Rs. 1500',

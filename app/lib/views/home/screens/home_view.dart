@@ -46,7 +46,7 @@ class HomeView extends StatelessWidget {
                   ),
                   const SizedBox(width: Dimens.defaultMargin),
                   Text(
-                    "Hello Vimosh!",
+                    "Hello Sunara!",
                     style: AppTextStyles.title1.copyWith(
                       color: AppColors.darkGreen,
                       fontWeight: FontWeight.w600,
@@ -134,7 +134,7 @@ class HomeView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(Dimens.defaultRadiusL),
                     color: AppColors.blue),
                 child: Container(
-                  height: 180,
+                  height: 185,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: AppColors.blue,
@@ -277,13 +277,13 @@ class HomeView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         categoryIcon(AppAssets.img1, "NIC \nServices", () {
-                          context.push('/');
+                          context.push('/service-booking');
                         }),
                         categoryIcon(AppAssets.img2, "Passport \nServices", () {
-                          context.push('/');
+                          context.push('/service-booking');
                         }),
                         categoryIcon(AppAssets.img3, "License \nServices", () {
-                          context.push('/');
+                          context.push('/service-booking');
                         }),
                       ],
                     ),

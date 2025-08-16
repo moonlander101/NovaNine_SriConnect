@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:lanka_connect/views/services/screens/single_service_screen.dart';
 import 'models/address.dart';
 import 'views/app.dart';
 import 'views/profile/screens/account_settings.dart';
@@ -14,12 +15,43 @@ import 'views/profile/screens/payment_details_screen.dart';
 import 'views/profile/screens/personal_info_screen.dart';
 import 'views/profile/screens/transactions_history_screen.dart';
 import 'views/services/screens/public_assistance_screen.dart';
+import 'views/landing_screen.dart';
+import 'views/auth/screens/login_screen.dart';
+import 'views/auth/screens/register_screen.dart';
+import 'views/auth/screens/forgot_password_screen.dart';
+import 'views/auth/screens/otp_verification_screen.dart';
+import 'views/auth/screens/success_screen.dart';
+
 
 final router = GoRouter(
   initialLocation: "/",
   routes: [
     GoRoute(
       path: '/',
+      builder: (context, state) => LandingScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => LoginScreen(),
+    ),
+    GoRoute(
+      path: '/otp-verification',
+      builder: (context, state) => OtpVerificationScreen(),
+    ),
+    GoRoute(
+      path: '/success',
+      builder: (context, state) => SuccessScreen(),
+    ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) => RegisterScreen(),
+    ),
+    GoRoute(
+      path: '/forgot-password',
+      builder: (context, state) => ForgotPasswordScreen(),
+    ),
+    GoRoute(
+      path: '/home',
       builder: (context, state) => App(),
     ),
     GoRoute(
@@ -98,6 +130,12 @@ final router = GoRouter(
       path: '/public-assistance',
       builder: (context, state) {
         return const PublicAssistanceScreen();
+      },
+    ),
+    GoRoute(
+      path: '/service-booking',
+      builder: (context, state) {
+        return SingleServiceScreen();
       },
     ),
   ],
