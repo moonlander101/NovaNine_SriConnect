@@ -33,7 +33,7 @@ Widget categoryIcon(String svgAsset, String label, VoidCallback onPressed) {
         Center(
           child: Text(
             label,
-            style: AppTextStyles.body2.copyWith(
+            style: AppTextStyles.body3.copyWith(
               color: AppColors.black.shade800,
             ),
             textAlign: TextAlign.center,

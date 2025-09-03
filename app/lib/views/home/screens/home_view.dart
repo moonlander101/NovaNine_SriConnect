@@ -276,14 +276,14 @@ class HomeView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        categoryIcon(AppAssets.img1, "NIC \nServices", () {
-                          context.push('/service-booking');
+                        categoryIcon(AppAssets.img1, "Passport \nApplication", () {
+                          context.push('/service-booking/15');
                         }),
-                        categoryIcon(AppAssets.img2, "Passport \nServices", () {
-                          context.push('/service-booking');
+                        categoryIcon(AppAssets.img3, "Vehicle \nRegistration", () {
+                          context.push('/service-booking/6');
                         }),
-                        categoryIcon(AppAssets.img3, "License \nServices", () {
-                          context.push('/service-booking');
+                        categoryIcon(AppAssets.img3, "Driving License \nApplication", () {
+                          context.push('/service-booking/5');
                         }),
                       ],
                     ),
@@ -291,16 +291,14 @@ class HomeView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        categoryIcon(AppAssets.img1, "Land & Deed \nServices",
-                            () {
-                          context.push('/');
+                        categoryIcon(AppAssets.img1, "Birth Cirtificate \nIssurance", () {
+                          context.push('/service-booking/1');
                         }),
-                        categoryIcon(AppAssets.img2, "Public \nAssistance", () {
-                          context.push('/public-assistance');
+                        categoryIcon(AppAssets.img2, "Passport \nRenewal", () {
+                          context.push('/service-booking/16');
                         }),
-                        categoryIcon(AppAssets.img3, "Public \nTransport Info",
-                            () {
-                          context.push('/');
+                        categoryIcon(AppAssets.img2, "Business \nRegistration", () {
+                          context.push('/public-assistance/10');
                         }),
                       ],
                     ),
@@ -316,7 +314,7 @@ class HomeView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Bill Payments", style: AppTextStyles.headline6),
+                  Text("Inquiries", style: AppTextStyles.headline6),
                   Text("See all",
                       style: AppTextStyles.body2.copyWith(
                         color: AppColors.black.shade400,
@@ -332,16 +330,16 @@ class HomeView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   billPaymentWidget(AppAssets.bill1, "Electricity \nBill", () {
-                    context.push('/');
+                    context.push('/service-booking/19');
                   }, AppColors.red50),
                   billPaymentWidget(AppAssets.bill2, "Water \nBill", () {
-                    context.push('/');
+                    context.push('/service-booking/20');
                   }, AppColors.blue50),
-                  billPaymentWidget(AppAssets.bill3, "Electricity \nBill", () {
-                    context.push('/');
+                  billPaymentWidget(AppAssets.bill3, "Phone \nBill", () {
+                    context.push('/service-booking/20');
                   }, AppColors.red100),
-                  billPaymentWidget(AppAssets.bill4, "Traffic \nBill", () {
-                    context.push('/');
+                  billPaymentWidget(AppAssets.bill4, "Internet \nBill", () {
+                    context.push('/service-booking/20');
                   }, AppColors.blue.shade100),
                 ],
               ),

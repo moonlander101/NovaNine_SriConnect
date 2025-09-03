@@ -53,35 +53,35 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _handleLogin() async {
 
-      context.showSnackBar('OTP Sent Successfully!');
-      context.push('/otp-verification');
+    // context.showSnackBar('OTP Sent Successfully!');
+    // context.push('/otp-verification');
   
-  //   try {
-  //     setState(() {
-  //       _isLoading = true;
-  //     });
-  //     await supabase.auth.signInWithPassword(
-  //       phone: _phoneController.text,
-  //       password: _passwordController.text,
-  //     );
-  //     if (mounted) {
-  //       context.showSnackBar('Sign In successful!');
-  //       _phoneController.clear();
-  //       _passwordController.clear();
-  //     }
-  //   } on AuthException catch (error) {
-  //     if (mounted) context.showSnackBar(error.message, isError: true);
-  //   } catch (error) {
-  //     if (mounted) {
-  //       context.showSnackBar('Unexpected error occurred', isError: true);
-  //     }
-  //   } finally {
-  //     if (mounted) {
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //     }
-  //   }
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      await supabase.auth.signInWithPassword(
+        phone: _phoneController.text,
+        password: _passwordController.text,
+      );
+      if (mounted) {
+        context.showSnackBar('Sign In successful!');
+        _phoneController.clear();
+        _passwordController.clear();
+      }
+    } on AuthException catch (error) {
+      if (mounted) context.showSnackBar(error.message, isError: true);
+    } catch (error) {
+      if (mounted) {
+        context.showSnackBar('Unexpected error occurred', isError: true);
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   void _handleForgotPassword() {
@@ -125,13 +125,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 20),
                     
                     // // Password input
-                    // CustomInputField(
-                    //   label: 'Password',
-                    //   hintText: 'Enter your password',
-                    //   controller: _passwordController,
-                    //   obscureText: true,
-                    // ),
-                    // const SizedBox(height: 16),
+                    CustomInputField(
+                      label: 'Password',
+                      hintText: 'Enter your password',
+                      controller: _passwordController,
+                      obscureText: true,
+                    ),
+                    const SizedBox(height: 16),
                     
                     // Forgot password link
                     Align(

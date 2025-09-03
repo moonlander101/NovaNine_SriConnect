@@ -133,9 +133,11 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/service-booking',
+      path: '/service-booking/:serviceId',
       builder: (context, state) {
-        return SingleServiceScreen();
+        return SingleServiceScreen(
+          serviceId: int.parse(state.pathParameters['serviceId']!),
+        );
       },
     ),
   ],
